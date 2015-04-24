@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="bootstrap.php"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         verbose="true">
+
+    <filter>
+        <blacklist>
+            <directory suffix=".php">./vendor</directory>
+        </blacklist>
+        <!--whitelist>
+            <directory suffix=".php">./module</directory>
+        </whitelist-->
+    </filter>
+    <testsuites>
+        <testsuite name="solution">
+            <directory>./</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

@@ -1,0 +1,49 @@
+.login-container{
+    max-width: 40%;
+    margin: 0 auto;
+    padding: 6% 0;
+}
+form label{
+    width: 100%;
+    font-weight: normal;
+    padding: 5px 0;
+}
+header{
+    width: 100%;
+    float: left;
+    height: 100px;
+}
+header nav{
+    float: left;
+}
+header aside{
+    float: right;
+}
+section{
+    float: left;
+}
+section aside{
+    float: left;
+    background-color: #f4f4f4;
+    width: 150px;
+}
+section aside ul{
+    margin: 0;
+    padding: 0;
+}
+section aside ul li{
+    list-style-type: none;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 5px 15px;
+}
+section aside ul li:first-of-type {
+    border-top: 1px solid #dbdbdb;
+}
+section aside ul li a{
+    color: #555;
+    font-size: 14px;
+}
+section aside ul li a:hover{
+    color: #000;
+    text-decoration: none;
+}

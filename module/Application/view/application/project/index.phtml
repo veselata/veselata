@@ -1,0 +1,30 @@
+<h4><?php if ($categoryTitle): ?> <?php echo $this->translate('listed in') . ' &laquo;' . $categoryTitle . ' &raquo;'; ?><?php endif; ?></h4>
+
+<div class="filter-wrap">
+    <h5><?php echo $this->translate('Filter'); ?>:</h5>
+    <ul class="sortFilter">
+        <li class="active"><a href="#" data-filter="all">All</a></li>
+        <li class=""><a href="#" data-filter="online">Online</a></li>
+        <li class=""><a href="#" data-filter="offline">Offline</a></li>
+    </ul>
+</div>
+<ul class="sortable clearfix">
+    <?php foreach ($projects as $project): ?>
+        <li data-type="<?php echo ($project->getUrl()) ? 'online' : 'offline'; ?>" data-id="id-<?php echo $project->getId(); ?>">
+            <div>
+                <div class="project-info" data-project-id="<?php echo $project->getId(); ?>">
+                    <a href="#" ><span class="glyphicon glyphicon-heart">Likes(<span class="count"><?php echo $project->getLikes(); ?></span>)</span></a>
+                    <span class="glyphicon glyphicon-eye-open">Views(<span><?php echo $project->getLogs()->count(); ?></span>)</span>
+                </div>
+                <a href="<?php echo $this->url('project', array('action' => 'view', 'id' => $project->getId())); ?>"><img src="<?php $this->basePath(); ?> /images/thumbs/<?php echo $project->getThumb(); ?>" alt="<?php echo $project->getName(); ?>" /></a>
+                <div class="mask-img">
+                    <div class="mask-img-title"><?php echo $project->getName(); ?></div>
+                </div>
+                <div class="project-category"><?php echo $this->translate('Published in'); ?>:
+                    <?php foreach ($project->getTags() as $tag): ?>
+                        <a href="<?php echo $this->url('project', array('action' => 'index', 'id' => $tag->getId())); ?>"><?php echo $tag->getTitle(); ?></a>,
+                    <?php endforeach; ?>
+                </div>
+        </li>
+    <?php endforeach; ?>
+</ul>

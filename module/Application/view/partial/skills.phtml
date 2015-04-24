@@ -1,0 +1,9 @@
+<?php
+$skills = \Administration\Model\Constants::getSkillList();
+?>
+<div class="sidebar">
+    <h3><?php echo $this->translate('Skills'); ?></h3>
+    <?php foreach ($skills as $skill): ?>
+        <a class="tooltipsy" title="<?php echo $skill['percent']; ?>%" ><div style="width:<?php echo $skill['percent']; ?>%;background:#<?php echo $skill['background']; ?>;"><?php echo $skill['title']; ?></div></a>
+        <?php endforeach; ?>
+</div>

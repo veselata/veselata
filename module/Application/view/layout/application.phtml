@@ -1,0 +1,117 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php
+        echo $this->headTitle($this->translate($page['title']) . ' - ' . $this->translate('Veselata'))
+                //    ->setSeparator(' - ')
+                ->setAutoEscape(false);
+        ?>
+
+        <?php
+        echo $this->headMeta()
+                ->appendName('description', '')
+                //  ->appendName('keywords', '')
+                ->appendName('author', 'veselata')
+                ->appendName('robots', 'all')
+                ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+                ->appendProperty('og:title', '')
+                ->appendProperty('og:description', '')
+                ->appendProperty('og:image', $this->basePath() . '/images/apple-touch-icon.png')
+                ->appendProperty('og:type', 'website')
+                ->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
+        ?>
+
+        <?php
+        echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/images/favicon.ico'))
+                ->headLink(array('rel' => 'apple-touch-icon', 'extras' => array('sizes' => '54x54'), 'href' => $this->basePath() . '/images/apple-touch-icon.png'))
+                ->headLink(array('rel' => 'apple-touch-icon', 'extras' => array('sizes' => '72x72'), 'href' => $this->basePath() . '/images/apple-touch-icon-72x72.png'))
+                ->headLink(array('rel' => 'apple-touch-icon', 'extras' => array('sizes' => '114x114'), 'href' => $this->basePath() . '/images/apple-touch-icon-114x114.png'))
+                ->prependStylesheet($this->basePath() . '/css/style.css')
+                ->prependStylesheet($this->basePath() . '/libs/flexslider/flexslider.css')
+                ->prependStylesheet($this->basePath() . '/libs/font-awesome/css/font-awesome.css')
+                ->prependStylesheet($this->basePath() . '/libs/bootstrap-social/bootstrap-social.css')
+                ->prependStylesheet($this->basePath() . '/libs/bootstrap/dist/css/bootstrap.css');
+        ?>
+    </head>
+    <body>
+        <section class ="container">
+            <div class="top-bar">
+                <div class="top-bar-color"></div>
+            </div>
+            <div class="top-content">
+                <div class="top-content-inset clearfix">
+                    <?php if (isset($this->boxes[\Administration\Model\Boxes::POSITION_TOP])): ?>
+                        <?php foreach ($this->boxes[\Administration\Model\Boxes::POSITION_TOP] as $box): ?>
+                            <?php echo $this->partial('partial/topBox', array('box' => $box)); ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+                <div id="top-trigger">
+                    <span class="glyphicon glyphicon-collapse-up"></span><?php echo $this->translate('Click me'); ?>
+                </div>
+            </div>
+            <header class="clearfix">
+                <div class="logo-wrap"><a href="<?php $this->basePath(); ?>/"><img src="<?php $this->basePath(); ?> /images/logo.png" alt="<?php echo $this->translate('Veselata'); ?>" /><span><?php echo $this->translate('Veselata'); ?></span></a></div>
+                <div class="col-md-3">&nbsp;</div>
+                <nav class="col-md-9"><?php echo $this->navigation('front-navigation')->breadcrumbs()->setPartial('partial/breadcrumbs')->setMinDepth(0); ?></nav>
+            </header>
+
+            <header class="navbar-fixed-top">
+                <div class="col-md-4"><a class="icon" href="<?php $this->basePath(); ?>/"><img src="<?php $this->basePath(); ?> /images/apple-touch-icon.png" alt="<?php echo $this->translate('Veselata'); ?>" /></a></div>
+                <div class="col-md-8">
+                    <?php echo $this->navigation('front-navigation')->menu()->setMaxDepth(0); ?>
+                </div>
+            </header>
+            <section class="row">
+                <section class="col-lg-6 col-lg-push-3 col-sm-12">
+                    <?php if ($page['title']): ?><h1><?php echo $page['title']; ?></h1><?php endif; ?>
+                    <?php echo $page['description']; ?>
+                    <?php echo $this->content; ?>
+                </section>
+                <aside class="col-lg-3  col-sm-6 col-lg-pull-6">
+                    <?php if (isset($this->boxes[\Administration\Model\Boxes::POSITION_LEFT])): ?>
+                        <?php foreach ($this->boxes[\Administration\Model\Boxes::POSITION_LEFT] as $box): ?>
+                            <?php echo $this->partial('partial/asideBox', array('box' => $box)); ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    <?php echo $this->partial('partial/categories', array('tags' => $this->tags)); ?>
+                </aside>
+                <aside class="col-lg-3 col-sm-6">
+                    <div class="sidebar">
+                        <h3><?php echo $this->translate('Menu'); ?></h3>
+                        <?php echo $this->navigation('front-navigation')->menu()->setUlClass('aside-menu'); ?>
+                    </div>
+                    <?php echo $this->partial('partial/skills'); ?>
+                    <?php if (isset($this->boxes[\Administration\Model\Boxes::POSITION_RIGHT])): ?>
+                        <?php foreach ($this->boxes[\Administration\Model\Boxes::POSITION_RIGHT] as $box): ?>
+                            <?php echo $this->partial('partial/asideBox', array('box' => $box)); ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </aside>
+            </section>
+            <footer class="container-fluid">
+                <div>&copy;<?php echo date('Y') ?> by Veselata, <?php echo $this->translate('All rights reserved.') ?></div>
+            </footer>
+        </section>
+        <?php
+        echo $this->headScript()
+                ->prependFile($this->basePath() . '/js/js.js')
+                ->prependFile($this->basePath() . '/libs/flexslider/jquery.flexslider-min.js')
+                ->prependFile($this->basePath() . '/libs/bootstrap/dist/js/bootstrap.min.js')
+                ->prependFile($this->basePath() . '/libs/jquery/dist/jquery.min.js');
+        ?>
+        <!--script type="text/javascript">
+            /*  var _gaq = _gaq || [];
+             _gaq.push(['_setAccount', 'UA-12383574-1']);
+             _gaq.push(['_trackPageview']);
+
+             (function() {
+             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+             })();*/
+
+        </script-->
+    </body>
+</html>

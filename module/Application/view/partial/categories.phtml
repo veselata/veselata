@@ -1,0 +1,8 @@
+<div class="sidebar clearfix">
+    <h3><?php echo $this->translate('Categories'); ?></h3>
+    <ul class="aside-categories">
+        <?php foreach ($tags as $key => $tag): ?>
+            <li><a href="<?php echo $this->url('project', array('action' => 'index', 'id' => $key)); ?>" <?php if ($tag['active']): ?>class="active"<?php endif; ?> ><?php echo $tag['title']; ?></a></li>
+            <?php endforeach; ?>
+    </ul>
+</div>

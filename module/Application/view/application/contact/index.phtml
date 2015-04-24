@@ -1,0 +1,10 @@
+<?php echo $this->flashMessenger()->renderCurrent(); ?>
+<?php
+
+$form->setAttribute('action', $this->url('contact'));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formCollection($form);
+echo $this->form()->closeTag();
+?>

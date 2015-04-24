@@ -1,0 +1,45 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php
+        $title = 'Login';
+        echo $this->headTitle('Veselata - ' . $this->translate($title))
+                ->setAutoEscape(false);
+        ?>
+        <?php
+        echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/images/favicon.ico'))
+                ->prependStylesheet($this->basePath() . '/css/admin.css')
+                ->prependStylesheet($this->basePath() . '/libs/bootstrap/dist/css/bootstrap.css');
+        ?>
+
+    </head>
+    <body>
+        <div class="login-container">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><?php echo $this->escapeHtml($title); ?></div>
+                <div class="panel-body">
+                    <?php echo $this->flashMessenger()->renderCurrent(); ?>
+                    <?php if ($isHidden): ?>
+                        <h5><?php echo $this->translate('Not allowed'); ?></h5>
+                        <p><?php echo $this->translate('Try again after'); ?> <?php echo Administration\Model\Logs::MAX_MINUTES; ?> <?php echo $this->translate('minutes'); ?>.</p>
+                    <?php else: ?>
+                        <?php
+                        $form->setAttribute('action', $this->url('adminarea', array('action' => 'login')));
+                        $form->prepare();
+
+                        echo $this->form()->openTag($form);
+                        echo $this->formCollection($form);
+                        echo $this->form()->closeTag();
+                        ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <?php
+        echo $this->headScript()
+                ->prependFile($this->basePath() . '/libs/bootstrap/js/alert.js')
+                ->prependFile($this->basePath() . '/libs/jquery/dist/jquery.min.js');
+        ?>
+    </body>
+</html>

@@ -1,0 +1,61 @@
+<?php
+$this->headTitle($project->getName() . ' ');
+?>
+<h5><?php echo $project->getName(); ?></h5>
+<div class="project-info details" data-project-id="<?php echo $project->getId(); ?>">
+    <a href="#"><span class="glyphicon glyphicon-heart"></span><?php echo $this->translate('Likes'); ?>(<span class="count"><?php echo $project->getLikes(); ?></span>)</a>
+    <span class="glyphicon glyphicon-eye-open"></span><?php echo $this->translate('Views'); ?>(<span class="count"><?php echo $project->getLogs()->count(); ?></span>)
+</div>
+
+<?php echo $project->getDescription(); ?>
+
+<p><strong><?php echo $this->translate('URL'); ?>:</strong> <?php if ($project->getUrl()): ?><a href="<?php echo $project->getUrl(); ?>" target="_blank"><?php echo $project->getUrl(); ?></a><?php else: ?>N/A<?php endif; ?></p>
+
+<?php if ($project->getFiles()): ?>
+    <div class="flexslider">
+        <ul class="slides">
+            <?php foreach ($project->getFiles() as $file): ?>
+                <li>
+                    <img src="<?php echo $this->basePath(); ?>/images/projects/<?php echo $project->getId(); ?>/<?php echo $file->getFile(); ?>" alt="<?php echo $file->getTitle(); ?>"  />
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
+
+<?php if ($categoryTitle): ?>
+    <p><?php echo $this->translate('Browse in'); ?> <strong><?php echo $categoryTitle; ?></strong></p>
+<?php endif; ?>
+
+<?php
+if ($navigation):
+
+    $prevLink = $this->url(null, array('id' => $navigation['prev']['id'], 'action' => 'view'));
+    $nextLink = $this->url(null, array('id' => $navigation['next']['id'], 'action' => 'view'));
+    ?>
+    <div class="inner-paginator" >
+        <?php if (isset($navigation['prev'])): ?>
+            <a href="<?php echo $prevLink; ?>" class="left"><span class="glyphicon glyphicon-backward"></span><span class="hidden-box"><?php echo $navigation['prev']['title']; ?></span></a>
+        <?php endif; ?>
+        <?php if (isset($navigation['next'])): ?>
+            <a href="<?php echo $nextLink; ?>" class="right"><span class="hidden-box"><?php echo $navigation['next']['title']; ?></span><span class="glyphicon glyphicon-forward"></span></a>
+        <?php endif; ?>
+    </div>
+
+    <ul class="pager">
+        <?php if (isset($navigation['prev'])): ?>
+            <li class="previous"><a href="<?php echo $prevLink; ?>">&larr; <?php echo $this->translate('Previous'); ?></a></li>
+        <?php endif; ?>
+        <?php if (isset($navigation['next'])): ?>
+            <li class="next"><a href="<?php echo $nextLink; ?>"><?php echo $this->translate('Next'); ?> &rarr;</a></li>
+            <?php endif; ?>
+    </ul>
+
+<?php endif; ?>
+
+
+
+
+
+
+

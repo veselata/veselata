@@ -1,0 +1,8 @@
+<?php if ($identity): ?>
+    <p>Hi, <?php echo $this->escapeHtml($identity['name']); ?>
+        ( <a href="<?php
+        echo $this->url('dashboard', array(
+            'action' => 'logout',
+        ));
+        ?>" ><?php echo $this->translate('Logout'); ?></a> )</p>
+<?php endif; ?>
