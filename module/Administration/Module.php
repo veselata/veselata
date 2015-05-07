@@ -28,6 +28,7 @@ class Module {
             $userIdentity = $authService->getUserIdentity();
             $viewModel = $event->getViewModel();
             $viewModel->setVariable('identity', $userIdentity);
+            $viewModel->setVariable('acl', $aclService);
 
             \Zend\View\Helper\Navigation\AbstractHelper::setDefaultAcl($aclService);
             \Zend\View\Helper\Navigation\AbstractHelper::setDefaultRole($userIdentity['role']);

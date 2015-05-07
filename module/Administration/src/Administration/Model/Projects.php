@@ -4,7 +4,7 @@ namespace Administration\Model;
 
 use Doctrine\ORM\EntityManager;
 
-class Projects extends BaseModel {
+class Projects extends BaseModel implements IBaseModel {
 
     /**
      *
@@ -14,6 +14,10 @@ class Projects extends BaseModel {
 
     public function __construct(EntityManager $entityManager, $entity = 'Administration\Entity\Project') {
         parent::__construct($entityManager, $entity);
+    }
+
+    public function getAllWhereLike($criteria = array(), $orderBy = array(), $limit = null, $offset = null) {
+        return parent::getAllWhereLike($criteria, $orderBy, $limit, $offset);
     }
 
     public function like($id) {

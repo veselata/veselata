@@ -18,6 +18,22 @@ $routes['adminarea'] = array(
     ),
 );
 
+$routes['api'] = array(
+    'type' => 'Segment',
+    'options' => array(
+        'route' => '/api[/][:model][/][:id]',
+        'constraints' => array(
+            'model' => '[a-zA-Z][a-zA-Z0-9_-]*',
+            'id' => '[0-9]+',
+        ),
+        'defaults' => array(
+            'controller' => 'Administration\Controller\RestController',
+            'method' => 'getList',
+            'type' => 'json',
+        ),
+    ),
+);
+
 foreach ($pages as $page) {
     $routes[$page] = array(
         'type' => 'Segment',

@@ -209,4 +209,16 @@ class User {
         return $this->createdAt;
     }
 
+    /**
+     *
+     * @return array
+     */
+    public function getData() {
+        return array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'username' => $this->getUsername(),
+        );
+    }
+
 }

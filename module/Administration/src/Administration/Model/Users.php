@@ -4,7 +4,7 @@ namespace Administration\Model;
 
 use Doctrine\ORM\EntityManager;
 
-class Users extends BaseModel {
+class Users extends BaseModel implements IBaseModel {
 
     /**
      *
@@ -20,6 +20,15 @@ class Users extends BaseModel {
 
     public function __construct(EntityManager $entityManager, $entity = 'Administration\Entity\User') {
         parent::__construct($entityManager, $entity);
+    }
+
+    /**
+     *
+     * @param type $criteria
+     * @param type $orderBy
+     */
+    public function getAllWhereLike($criteria = array(), $orderBy = array('id' => 'desc'), $limit = null, $offset = null) {
+        return parent::getAllWhereLike($criteria, $orderBy, $limit, $offset);
     }
 
     /**

@@ -27,6 +27,7 @@ class ContactController extends AbstractActionController {
     }
 
     public function indexAction() {
+        return $this->notFoundAction();
         $form = new \Application\Form\Contact();
 
         $request = $this->getRequest();

@@ -16,7 +16,7 @@ class AclService implements AclInterface {
         $this->acl = $acl;
 
         if (!is_array($aclConfig) || empty($aclConfig) ||
-            !isset($aclConfig['roles']) || !isset($aclConfig['resources'])
+                !isset($aclConfig['roles']) || !isset($aclConfig['resources'])
         ) {
             throw new \Exception('Invalid parameter passed in ' . __FUNCTION__);
         }
@@ -40,19 +40,21 @@ class AclService implements AclInterface {
 
     public function addResources() {
         foreach ($this->aclConfig['resources'] as $permission => $controllers) {
-            foreach ($controllers as $action => $roles) {
-                if ($action && !$this->acl->hasResource($action)) {
-                    $this->acl->addResource(new GenericResource($action));
+
+            if (!in_array($permission, array('allow', 'deny'))) {
+                throw new \Exception('No valid permission defined: ' . $permission);
+            }
+
+            foreach ($controllers as $controller => $item) {
+                if (!$this->acl->hasResource($controller)) {
+                    $this->acl->addResource(new GenericResource($controller));
                 }
 
-                $roles = !is_array($roles) ? array($roles) : $roles;
-                foreach ($roles as $role) {
-                    if ($permission == 'allow') {
-                        $this->acl->allow($role, $action);
-                    } elseif ($permission == 'deny') {
-                        $this->acl->deny($role, $action);
+                foreach ($item as $action => $role) {
+                    if ($action !== 0) {
+                        $this->acl->$permission($role, $controller, $action);
                     } else {
-                        throw new \Exception('No valid permission defined: ' . $permission);
+                        $this->acl->$permission($role, $controller);
                     }
                 }
             }

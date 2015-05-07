@@ -1,53 +1,60 @@
 <?php
 
-// null == all
+// 0 == all
 return array(
     'acl' => array(
         'roles' => array(
             'guest' => null,
             'user' => 'guest',
-            'administrator' => null,
+            'administrator' => 'user',
         ),
         'resources' => array(
+            'deny' => array(
+                'Administration\Controller\UsersController' => array(
+                    'edit' => array('user'),
+                    'delete' => array('user'),
+                ),
+            ),
             'allow' => array(
                 'Application\Controller\IndexController' => array(
-                    null => array('guest'),
+                    0 => null,
                 ),
                 'Application\Controller\ContactController' => array(
-                    null => array('guest'),
+                    0 => null
                 ),
                 'Application\Controller\ProjectController' => array(
-                    null => array('guest'),
+                    0 => array('guest'),
                 ),
                 'Application\Controller\ErrorController' => array(
-                    null => array('guest'),
+                    0 => array('guest'),
                 ),
                 'Administration\Controller\IndexController' => array(
                     'login' => null,
                 ),
                 'Administration\Controller\DashboardController' => array(
-                    null => array('administrator'),
+                    0 => array('user'),
                 ),
                 'Administration\Controller\PagesController' => array(
-                    null => 'administrator',
+                    0 => array('administrator'),
                 ),
                 'Administration\Controller\BoxesController' => array(
-                    null => array('administrator'),
+                    0 => array('user'),
                 ),
                 'Administration\Controller\ProjectsController' => array(
-                    null => array('administrator'),
+                    0 => array('administrator'),
                 ),
                 'Administration\Controller\FilesController' => array(
-                    null => array('administrator'),
+                    0 => array('administrator'),
                 ),
                 'Administration\Controller\ContactsController' => array(
-                    null => array('administrator'),
+                    0 => array('administrator'),
                 ),
                 'Administration\Controller\UsersController' => array(
-                    null => array('administrator'),
+                    0 => array('administrator'),
                 ),
-            ),
-            'deny' => array(
+                'Administration\Controller\RestController' => array(
+                    0 => array('administrator', 'user'),
+                ),
             ),
         ),
     ),

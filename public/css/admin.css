@@ -13,19 +13,9 @@ header{
     float: left;
     height: 100px;
 }
-header nav{
-    float: left;
-}
-header aside{
-    float: right;
-}
-section{
-    float: left;
-}
+/******************************/
 section aside{
-    float: left;
     background-color: #f4f4f4;
-    width: 150px;
 }
 section aside ul{
     margin: 0;

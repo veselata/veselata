@@ -33,7 +33,7 @@ class IndexController extends AbstractActionController {
         $this->logsModel = $logsModel;
 
         $this->authService = $authService;
-        //    $this->authService->clearIdentity();
+        $this->authService->clearIdentity();
     }
 
     public function loginAction() {

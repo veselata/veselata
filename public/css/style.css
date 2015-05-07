@@ -1,5 +1,6 @@
+
 body{
-    font-family: Arial,sans-serif;
+    font-family: Ariel ,sans-serif;
     color: #666;
     font-size: 12px;
 }
@@ -13,12 +14,17 @@ a:hover{
     color: #555;
     border: none;
 }
-h1, h2, h3, h5{
+h1, h2, h3 {
+    border-bottom: 4px solid #666;
+    padding: 5px 0;
+    font-size: 14px;
+    color: #000;
     text-transform: uppercase;
 }
-h4{
-    font-size: 12px;
+h4, h5{
     color: #000;
+    text-transform: uppercase;
+    font-size: 12px;
 }
 ul{
     padding: 0 0 0 10px;
@@ -43,8 +49,8 @@ ul{
     width: 25%;
 }
 .top-content-inset{
-   content: " ";
-   display: none;
+    content: " ";
+    display: none;
 }
 .top-content-inset .form-wrap{
     width: 70%;
@@ -141,12 +147,6 @@ a.tooltipsy div{
     padding: 2px;
 }
 /**************/
-h1, h2, h3 {
-    border-bottom: 4px solid #666;
-    padding: 5px 0;
-    font-size: 12px;
-    color: #000;
-}
 header{
     width: 100%;
 }
@@ -180,7 +180,6 @@ aside .sidebar{
 aside h3{
     border-bottom: 4px solid #aaa;
     color: #555;
-    font-size: 12px;
     padding: 5px 0;
 }
 aside .sidebar h3{
@@ -388,7 +387,7 @@ ul.sortable li .mask-img-title{
     color: #fff600;
 }
 .inner-paginator a:hover{
-    text-decoration: none;   
+    text-decoration: none;
 }
 .inner-paginator .hidden-box{
     display: none;

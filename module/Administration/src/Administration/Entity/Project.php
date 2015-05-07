@@ -394,4 +394,15 @@ class Project {
         return $this->createdAt;
     }
 
+    /**
+     *
+     * @return array
+     */
+    public function getData() {
+        return array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+        );
+    }
+
 }

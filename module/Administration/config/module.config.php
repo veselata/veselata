@@ -11,6 +11,7 @@ return array(
             'Administration\Controller\FilesController',
             'Administration\Controller\ContactsController',
             'Administration\Controller\UsersController',
+            'Administration\Controller\RestController',
         ),
         'instance' => array(
             'preference' => array(
