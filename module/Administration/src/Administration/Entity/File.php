@@ -86,17 +86,9 @@ class File {
 
     /**
      *
-     * @param array
+     * @param \Administration\Entity\Project $project
+     * @return \Administration\Entity\File
      */
-    public function exchangeArray(array $data) {
-        $this->type = isset($data['type']) ? $data['type'] : \Administration\Model\Files::TYPE_IMAGE;
-        $this->itemId = isset($data['itemId']) ? $data['itemId'] : 0;
-        $this->title = isset($data['title']) ? $data['title'] : null;
-        $this->file = isset($data['file']) ? $data['file'] : 'default.png';
-        $this->isActive = isset($data['isActive']) ? $data['isActive'] : 0;
-        $this->sortOrder = 0;
-    }
-
     public function addProject(\Administration\Entity\Project $project) {
         $this->project = $project;
 

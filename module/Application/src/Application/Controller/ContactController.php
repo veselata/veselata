@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Administration\Model\Contacts;
 use Administration\Service\NotificationService;
+use Application\Form\Contact as ContactForm;
 
 class ContactController extends AbstractActionController {
 
@@ -21,34 +22,38 @@ class ContactController extends AbstractActionController {
      */
     protected $notificationService;
 
-    public function __construct(Contacts $contactModel, NotificationService $notificationService) {
+    /**
+     *
+     * @var Application\Form\Contact
+     */
+    protected $form;
+
+    public function __construct(Contacts $contactModel, NotificationService $notificationService, ContactForm $form) {
         $this->contactModel = $contactModel;
         $this->notificationService = $notificationService;
+        $this->form = $form;
     }
 
     public function indexAction() {
-        return $this->notFoundAction();
-        $form = new \Application\Form\Contact();
+        $object = $this->contactModel->getEntity();
+        $this->form->bind($object);
 
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $form->setData($request->getPost());
+        if ($this->getRequest()->isPost()) {
+            $this->form->setData($this->getRequest()->getPost());
 
-            if ($form->isValid()) {
-                $formData = $form->getData();
-                unset($formData['csrf'], $formData['submit']);
-                $this->contactModel->add($formData);
+            if ($this->form->isValid()) {
+                $this->contactModel->add($object);
                 $this->flashMessenger()->addMessage('Your message was sent successfully.');
 
                 // send notification
-                $this->notificationService->notify($formData);
+                $this->notificationService->notify($object);
                 $this->redirect()->toRoute('contact');
             } else {
                 $this->flashMessenger()->addMessage('Please fill in all fields marked with an asterisk (*)');
             }
         }
 
-        return new ViewModel(array('form' => $form,));
+        return new ViewModel(array('form' => $this->form,));
     }
 
 }

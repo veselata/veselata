@@ -28,7 +28,7 @@ class Tags extends BaseModel {
         $userSession = new \Zend\Session\Container('userSession');
         $categoryId = $userSession->offsetGet('categoryId');
         if ($route !== 'project') {
-            $userSession->getManager()->destroy();
+            $userSession->offsetSet('categoryId', null);
         }
 
         foreach ($data as $item) {

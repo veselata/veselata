@@ -96,23 +96,8 @@ class Page {
      * @ORM\PrePersist
      */
     function onPrePersist() {
+        $this->menu = \Administration\Model\Pages::DEFAULT_MENU;
         $this->createdAt = new \DateTime('now');
-    }
-
-    /**
-     *
-     * @param array
-     */
-    public function exchangeArray(array $data) {
-        $this->parentId = isset($data['parentId']) ? $data['parentId'] : 0;
-        $this->menu = isset($data['menu']) ? $data['menu'] : \Administration\Model\Pages::DEFAULT_MENU;
-        $this->route = isset($data['route']) ? $data['route'] : null;
-        $this->controller = isset($data['controller']) ? $data['controller'] : null;
-        $this->action = isset($data['action']) ? $data['action'] : null;
-        $this->title = isset($data['title']) ? $data['title'] : 'n/a';
-        $this->description = isset($data['description']) ? $data['description'] : null;
-        $this->sortOrder = isset($data['sortOrder']) ? $data['sortOrder'] : 0;
-        $this->isActive = isset($data['isActive']) ? $data['isActive'] : 0;
     }
 
     /**

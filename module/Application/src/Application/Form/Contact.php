@@ -4,11 +4,29 @@ namespace Application\Form;
 
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilterProviderInterface;
+use Doctrine\ORM\EntityManager;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
 class Contact extends Form implements InputFilterProviderInterface {
 
-    public function __construct($name = null) {
-        parent::__construct('Contact');
+    /**
+     *
+     * @var Doctrine\ORM\EntityManager
+     */
+    protected $entityManager;
+
+    /**
+     *
+     * @var string
+     */
+    protected $targetClass = 'Administration\Entity\User';
+
+    public function __construct(EntityManager $entityManager) {
+        $this->entityManager = $entityManager;
+
+        parent::__construct('contact-form');
+
+        $this->setHydrator(new DoctrineHydrator($this->entityManager, $this->targetClass));
 
         $this->setAttribute('role', 'form');
 
@@ -48,8 +66,16 @@ class Contact extends Form implements InputFilterProviderInterface {
         ));
 
         $this->add(array(
-            'name' => 'csrf',
-            'type' => 'Csrf',
+            'name' => 'contact_csrf',
+            'type' => 'csrf',
+            'attributes' => array(
+                'id' => 'contact_csrf',
+                'type' => 'text'
+            ,),
+            'options' => array(
+                'csrf_options' => array(
+                    'timeout' => 600,
+                )),
         ));
 
         $this->add(array(

@@ -23,23 +23,14 @@ class BoxTest extends \PHPUnit_Framework_TestCase {
 
     public function testOnPrePersist() {
         $this->entityMock->expects($this->once())
-            ->method('onPrePersist');
+                ->method('onPrePersist');
 
         $this->assertEquals($this->entity->onPrePersist(), $this->entityMock->onPrePersist());
     }
 
-    public function testExchangeArray() {
-        $data = array('title' => 'title');
-        $this->entityMock->expects($this->once())
-            ->method('exchangeArray')
-            ->with($this->equalTo($data));
-
-        $this->assertEquals($this->entity->exchangeArray($data), $this->entityMock->exchangeArray($data));
-    }
-
     public function testGetId() {
         $this->entityMock->expects($this->once())
-            ->method('getId');
+                ->method('getId');
 
         $this->assertEquals($this->entity->getId(), $this->entityMock->getId());
     }
@@ -49,8 +40,8 @@ class BoxTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setTitle($title);
 
         $this->entityMock->expects($this->once())
-            ->method('getTitle')
-            ->will($this->returnValue($title));
+                ->method('getTitle')
+                ->will($this->returnValue($title));
         $this->assertEquals($this->entity->getTitle(), $this->entityMock->getTitle());
     }
 
@@ -59,8 +50,8 @@ class BoxTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setDescription($description);
 
         $this->entityMock->expects($this->once())
-            ->method('getDescription')
-            ->will($this->returnValue($description));
+                ->method('getDescription')
+                ->will($this->returnValue($description));
         $this->assertEquals($this->entity->getDescription(), $this->entityMock->getDescription());
     }
 
@@ -69,8 +60,8 @@ class BoxTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setPosition($position);
 
         $this->entityMock->expects($this->once())
-            ->method('getPosition')
-            ->will($this->returnValue($position));
+                ->method('getPosition')
+                ->will($this->returnValue($position));
         $this->assertEquals($this->entity->getPosition(), $this->entityMock->getPosition());
     }
 
@@ -79,8 +70,8 @@ class BoxTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setSortOrder($sortOrder);
 
         $this->entityMock->expects($this->once())
-            ->method('getSortOrder')
-            ->will($this->returnValue($sortOrder));
+                ->method('getSortOrder')
+                ->will($this->returnValue($sortOrder));
         $this->assertEquals($this->entity->getSortOrder(), $this->entityMock->getSortOrder());
     }
 
@@ -89,15 +80,15 @@ class BoxTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setIsActive($isActive);
 
         $this->entityMock->expects($this->once())
-            ->method('getIsActive')
-            ->will($this->returnValue($isActive));
+                ->method('getIsActive')
+                ->will($this->returnValue($isActive));
         $this->assertEquals($this->entity->getIsActive(), $this->entityMock->getIsActive());
     }
 
     public function testGetIsActiveReturnBoolean() {
         $this->entityMock->expects($this->once())
-            ->method('getIsActive')
-            ->will($this->returnValue(true));
+                ->method('getIsActive')
+                ->will($this->returnValue(true));
         $this->assertInternalType('boolean', $this->entityMock->getIsActive());
     }
 
@@ -106,16 +97,16 @@ class BoxTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setCreatedAt($createdAt);
 
         $this->entityMock->expects($this->once())
-            ->method('getCreatedAt')
-            ->will($this->returnValue($createdAt));
+                ->method('getCreatedAt')
+                ->will($this->returnValue($createdAt));
         $this->assertEquals($this->entity->getCreatedAt(), $this->entityMock->getCreatedAt());
     }
 
     public function testGetCreatedAtReturnDateTime() {
         $createdAt = new \DateTime();
         $this->entityMock->expects($this->once())
-            ->method('getCreatedAt')
-            ->will($this->returnValue($createdAt));
+                ->method('getCreatedAt')
+                ->will($this->returnValue($createdAt));
         $this->assertInternalType('object', $this->entityMock->getCreatedAt());
     }
 

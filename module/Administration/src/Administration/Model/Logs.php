@@ -27,7 +27,10 @@ class Logs extends BaseModel {
      */
     public function log($block = false) {
         $entity = new $this->entity;
-        $entity->exchangeArray($this->setData());
+        $entity->setIp(\Administration\Model\BaseModel::getRemoteAddress());
+        $request = new PhpEnvironment\Request();
+        $serverParams = $request->getServer();
+        $entity->setExtra(Json::encode($serverParams));
         if ($block) {
             $entity->setIsBlocked(true);
         }
@@ -87,29 +90,6 @@ class Logs extends BaseModel {
                 ->setParameter(':isBlocked', true);
 
         return ($queryBuilder->getQuery()->getSingleScalarResult()) ? true : false;
-    }
-
-    /**
-     *
-     * @return array
-     */
-    public function setData() {
-        $data['ip'] = $this->getRemoteAddress();
-
-        $request = new PhpEnvironment\Request();
-        $serverParams = $request->getServer();
-        $data['extra'] = Json::encode($serverParams);
-
-        return $data;
-    }
-
-    /**
-     *
-     * @return string
-     */
-    public static function getRemoteAddress() {
-        $remote = new PhpEnvironment\RemoteAddress;
-        return $remote->getIpAddress();
     }
 
     /**

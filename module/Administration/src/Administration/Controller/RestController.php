@@ -30,7 +30,14 @@ class RestController extends AbstractRestfulController {
         if (strlen($data['searchPhrase']) > 0) {
             $fields = $this->model->getClassMetadata();
             foreach ($fields as $field) {
-                $criteria[$field] = $data['searchPhrase'];
+                if ($field === 'type' && method_exists($this->model, 'getTypeByValue')) {
+                    $typeId = $this->model->getTypeByValue($data['searchPhrase']);
+                    if (!is_null($typeId)) {
+                        $criteria[$field] = $typeId;
+                    }
+                } else {
+                    $criteria[$field] = $data['searchPhrase'];
+                }
             }
         }
 

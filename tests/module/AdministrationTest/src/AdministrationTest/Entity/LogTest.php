@@ -28,15 +28,6 @@ class LogTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($this->entity->onPrePersist(), $this->entityMock->onPrePersist());
     }
 
-    public function testExchangeArray() {
-        $data = array('ip' => 'ip');
-        $this->entityMock->expects($this->once())
-                ->method('exchangeArray')
-                ->with($this->equalTo($data));
-
-        $this->assertEquals($this->entity->exchangeArray($data), $this->entityMock->exchangeArray($data));
-    }
-
     public function testGetId() {
         $this->entityMock->expects($this->once())
                 ->method('getId');

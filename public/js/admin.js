@@ -6,8 +6,13 @@ $(document).ready(function () {
         formatters: {
             "options": function (column, row)
             {
-                return "<a href=\"edit\">Edit</a>";
+                return "<a href=\"edit/" + row.id + "\">Edit</a> | " +
+                        "<a href=\"#\" >Delete</a>";
             }
         }
+    });
+
+    $('.form-group .required').each(function () {
+        $(this).prev('span').append(' *');
     });
 });

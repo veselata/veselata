@@ -103,12 +103,6 @@ class PagesTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testAdd() {
-        $data = array('title' => 'title');
-
-        $this->entityMock->expects($this->any())
-                ->method('exchangeArray')
-                ->with($this->equalTo($data));
-
         $this->entityManagerMock->expects($this->any())
                 ->method('persist')
                 ->with($this->equalTo($this->entityMock));
@@ -116,11 +110,15 @@ class PagesTest extends \PHPUnit_Framework_TestCase {
         $this->entityManagerMock->expects($this->any())
                 ->method('flush');
 
-        $this->assertSame($this->entityModel->add($data), $this->baseModelMock->add($data));
+        $this->assertSame($this->entityModel->add($this->entityMock), $this->baseModelMock->add($this->entityMock));
     }
 
     public function testEdit() {
-        $data = array('id' => 1);
+        $id = 1;
+
+        $this->entityMock->expects($this->any())
+                ->method('getId')
+                ->will($this->returnValue($id));
 
         $this->entityManagerMock->expects($this->any())
                 ->method('getRepository')
@@ -128,12 +126,8 @@ class PagesTest extends \PHPUnit_Framework_TestCase {
 
         $this->repositoryMock->expects($this->any())
                 ->method('find')
-                ->with($this->equalTo($data['id']))
+                ->with($this->equalTo($id))
                 ->will($this->returnValue($this->entityMock));
-
-        $this->entityMock->expects($this->any())
-                ->method('exchangeArray')
-                ->with($this->equalTo($data));
 
         $this->entityManagerMock->expects($this->any())
                 ->method('persist')
@@ -142,7 +136,7 @@ class PagesTest extends \PHPUnit_Framework_TestCase {
         $this->entityManagerMock->expects($this->any())
                 ->method('flush');
 
-        $this->assertSame($this->entityModel->edit($data), $this->baseModelMock->edit($data));
+        $this->assertSame($this->entityModel->edit($this->entityMock), $this->baseModelMock->edit($this->entityMock));
     }
 
     public function testDelete() {

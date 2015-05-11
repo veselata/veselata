@@ -114,18 +114,6 @@ class Project {
 
     /**
      *
-     * @param array
-     */
-    public function exchangeArray(array $data) {
-        $this->name = isset($data['name']) ? $data['name'] : null;
-        $this->description = isset($data['description']) ? $data['description'] : null;
-        $this->thumb = isset($data['thumb']) ? $data['thumb'] : null;
-        $this->sortOrder = 0;
-        $this->isActive = isset($data['isActive']) ? $data['isActive'] : 0;
-    }
-
-    /**
-     *
      * @param \Administration\Entity\Tag $tag
      */
     public function addTag(\Administration\Entity\Tag $tag) {

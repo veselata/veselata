@@ -1,1 +1,5 @@
-edit
+<h1>Edit</h1>
+<?php echo $this->flashMessenger()->renderCurrent(); ?>
+<?php
+$form->setAttribute('action', $this->url('users', array('action' => 'edit', 'id' => 1)));
+echo $this->form()->render($form);

@@ -43,8 +43,8 @@ class IndexController extends AbstractActionController {
         $request = $this->getRequest();
         if ($request->isPost()) {
 
-            $filter = new \Administration\InputFilter\Login();
-            $form->setInputFilter($filter->getInputFilter());
+            //  $filter = new \Administration\InputFilter\Login();
+            //   $form->setInputFilter($filter->getInputFilter());
             $form->setData($request->getPost());
 
             if ($form->isValid()) {

@@ -73,18 +73,6 @@ class Box {
 
     /**
      *
-     * @param array
-     */
-    public function exchangeArray(array $data) {
-        $this->title = isset($data['title']) ? $data['title'] : null;
-        $this->description = isset($data['description']) ? $data['description'] : null;
-        $this->position = isset($data['position']) ? $data['position'] : null;
-        $this->isActive = isset($data['isActive']) ? $data['isActive'] : 0;
-        $this->sortOrder = isset($data['sortOrder']) ? $data['sortOrder'] : 0;
-    }
-
-    /**
-     *
      * @return integer
      */
     public function getId() {

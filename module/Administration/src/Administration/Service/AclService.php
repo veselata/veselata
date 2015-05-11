@@ -27,7 +27,7 @@ class AclService implements AclInterface {
     }
 
     public function addRoles() {
-        $userRoleList = array_values(\Administration\Model\Users::getUserRoleList());
+        $userRoleList = array_values(\Administration\Model\Users::getTypeList());
         foreach ($this->aclConfig['roles'] as $name => $parent) {
             if (!in_array($name, $userRoleList)) {
                 throw new \Exception('Role names don\'t exist. Please double check acl config.');

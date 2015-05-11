@@ -79,20 +79,15 @@ class Log {
      * @ORM\PrePersist
      */
     function onPrePersist() {
+        $this->ip = \Administration\Model\BaseModel::getRemoteAddress();
         $this->createdAt = new \DateTime('now');
     }
 
     /**
      *
-     * @param array
+     * @param \Administration\Entity\Project $project
+     * @return \Administration\Entity\Log
      */
-    public function exchangeArray(array $data) {
-        $this->ip = isset($data['ip']) ? $data['ip'] : null;
-        $this->extra = isset($data['extra']) ? $data['extra'] : null;
-        $this->isBlocked = isset($data['isBlocked']) ? $data['isBlocked'] : 0;
-        $this->isTrack = isset($data['isTrack']) ? $data['isTrack'] : 0;
-    }
-
     public function addProject(\Administration\Entity\Project $project) {
         $this->project = $project;
 

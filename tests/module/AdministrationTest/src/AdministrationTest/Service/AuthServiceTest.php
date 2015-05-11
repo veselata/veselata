@@ -223,7 +223,7 @@ class AuthServiceTest extends \PHPUnit_Framework_TestCase {
                 ->method('getName');
 
         $this->identityMock->expects($this->once())
-                ->method('getAccountType');
+                ->method('getType');
 
         $this->identityMock->expects($this->once())
                 ->method('getUsername');

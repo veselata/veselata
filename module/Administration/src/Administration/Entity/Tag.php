@@ -69,16 +69,6 @@ class Tag {
 
     /**
      *
-     * @param array
-     */
-    public function exchangeArray(array $data) {
-        $this->title = isset($data['title']) ? $data['title'] : null;
-        $this->isActive = isset($data['isActive']) ? $data['isActive'] : 0;
-        $this->sortOrder = 0;
-    }
-
-    /**
-     *
      * @param \Administration\Entity\Project $project
      */
     public function addProject(\Administration\Entity\Project $project) {

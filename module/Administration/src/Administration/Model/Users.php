@@ -34,7 +34,7 @@ class Users extends BaseModel implements IBaseModel {
     /**
      * @return array
      */
-    public static function getUserRoleList() {
+    public static function getTypeList() {
         return array(
             self::TYPE_GUEST => 'guest',
             self::TYPE_USER => 'user',
@@ -45,9 +45,19 @@ class Users extends BaseModel implements IBaseModel {
     /**
      * @return string
      */
-    public static function getUserRoleByKey($key) {
-        $roleList = self::getUserRoleList();
-        return isset($roleList[$key]) ? $roleList[$key] : self::TYPE_GUEST;
+    public static function getTypeByKey($key) {
+        $listTypes = self::getTypeList();
+        return isset($listTypes[$key]) ? $listTypes[$key] : self::TYPE_GUEST;
+    }
+
+    /**
+     * @return string|false
+     */
+    public function getTypeByValue($value) {
+        $listTypes = self::getTypeList();
+        if (in_array($value, array_values($listTypes))) {
+            return array_search($value, $listTypes);
+        }
     }
 
 }

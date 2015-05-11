@@ -23,23 +23,14 @@ class ContactTest extends \PHPUnit_Framework_TestCase {
 
     public function testOnPrePersist() {
         $this->entityMock->expects($this->once())
-            ->method('onPrePersist');
+                ->method('onPrePersist');
 
         $this->assertEquals($this->entity->onPrePersist(), $this->entityMock->onPrePersist());
     }
 
-    public function testExchangeArray() {
-        $data = array('name' => 'name');
-        $this->entityMock->expects($this->once())
-            ->method('exchangeArray')
-            ->with($this->equalTo($data));
-
-        $this->assertEquals($this->entity->exchangeArray($data), $this->entityMock->exchangeArray($data));
-    }
-
     public function testGetId() {
         $this->entityMock->expects($this->once())
-            ->method('getId');
+                ->method('getId');
 
         $this->assertEquals($this->entity->getId(), $this->entityMock->getId());
     }
@@ -49,8 +40,8 @@ class ContactTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setName($name);
 
         $this->entityMock->expects($this->once())
-            ->method('getName')
-            ->will($this->returnValue($name));
+                ->method('getName')
+                ->will($this->returnValue($name));
         $this->assertEquals($this->entity->getName(), $this->entityMock->getName());
     }
 
@@ -59,8 +50,8 @@ class ContactTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setEmail($email);
 
         $this->entityMock->expects($this->once())
-            ->method('getEmail')
-            ->will($this->returnValue($email));
+                ->method('getEmail')
+                ->will($this->returnValue($email));
         $this->assertEquals($this->entity->getEmail(), $this->entityMock->getEmail());
     }
 
@@ -69,8 +60,8 @@ class ContactTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setSubject($subject);
 
         $this->entityMock->expects($this->once())
-            ->method('getSubject')
-            ->will($this->returnValue($subject));
+                ->method('getSubject')
+                ->will($this->returnValue($subject));
         $this->assertEquals($this->entity->getSubject(), $this->entityMock->getSubject());
     }
 
@@ -79,8 +70,8 @@ class ContactTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setMessage($message);
 
         $this->entityMock->expects($this->once())
-            ->method('getMessage')
-            ->will($this->returnValue($message));
+                ->method('getMessage')
+                ->will($this->returnValue($message));
         $this->assertEquals($this->entity->getMessage(), $this->entityMock->getMessage());
     }
 
@@ -89,8 +80,8 @@ class ContactTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setIp($ip);
 
         $this->entityMock->expects($this->once())
-            ->method('getIp')
-            ->will($this->returnValue($ip));
+                ->method('getIp')
+                ->will($this->returnValue($ip));
         $this->assertEquals($this->entity->getIp(), $this->entityMock->getIp());
     }
 
@@ -99,16 +90,16 @@ class ContactTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setCreatedAt($createdAt);
 
         $this->entityMock->expects($this->once())
-            ->method('getCreatedAt')
-            ->will($this->returnValue($createdAt));
+                ->method('getCreatedAt')
+                ->will($this->returnValue($createdAt));
         $this->assertEquals($this->entity->getCreatedAt(), $this->entityMock->getCreatedAt());
     }
 
     public function testGetCreatedAtReturnDateTime() {
         $createdAt = new \DateTime();
         $this->entityMock->expects($this->once())
-            ->method('getCreatedAt')
-            ->will($this->returnValue($createdAt));
+                ->method('getCreatedAt')
+                ->will($this->returnValue($createdAt));
         $this->assertInternalType('object', $this->entityMock->getCreatedAt());
     }
 

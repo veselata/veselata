@@ -4,8 +4,13 @@ namespace Administration\Model;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Annotations\AnnotationReader;
+use Zend\Http\PhpEnvironment;
 
 abstract class BaseModel {
+    /* Status */
+
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 0;
 
     /**
      *
@@ -93,39 +98,38 @@ abstract class BaseModel {
 
     /**
      *
-     * @param array $data
+     * @param Administration\Model\entity $object
      */
-    public function add($data) {
-        if (!is_array($data)) {
+    public function add($object) {
+        if (!$object instanceof $this->entity) {
             throw new \Exception('Invalid parameter passed is ' . __FUNCTION__);
         }
 
-        $entity = new $this->entity;
-        $entity->exchangeArray($data);
-        $this->entityManager->persist($entity);
+        $this->entityManager->persist($object);
         $this->entityManager->flush();
     }
 
     /**
      *
-     * @param array $data
+     * @param Administration\Model\entity $object
      */
-    public function edit($data) {
-        if (!is_array($data)) {
+    public function edit($object) {
+        if (!$object instanceof $this->entity) {
             throw new \Exception('Invalid parameter passed is ' . __FUNCTION__);
         }
 
-        if (!isset($data['id'])) {
+        $id = $object->getId();
+
+        if (!is_int($id) || $id < 0) {
             throw new \Exception('Invalid parameter passed is ' . __FUNCTION__);
         }
 
-        $entity = $this->entityManager->getRepository($this->entity)->find($data['id']);
+        $entity = $this->entityManager->getRepository($this->entity)->find($id);
         if ($entity === null) {
             throw new \Exception('Not found in ' . __FUNCTION__);
         }
 
-        $entity->exchangeArray($data);
-        $this->entityManager->persist($entity);
+        $this->entityManager->persist($object);
         $this->entityManager->flush();
     }
 
@@ -170,23 +174,49 @@ abstract class BaseModel {
 
     /**
      *
-     * @return array
+     * @return \Administration\Model\entity
      */
-    public function getClassMetadataByType() {
-        $annotationReader = new AnnotationReader();
-        $reflection = new \ReflectionClass($this->entity);
-
-        $result = array();
-        $classMetadata = $this->getClassMetadata();
-        foreach ($classMetadata as $field) {
-            if ($reflection->hasProperty($field)) {
-                $fieldInfo = $annotationReader->getPropertyAnnotations($reflection->getProperty($field));
-                if ($fieldInfo[0]->type !== 'datetime') { // to do
-                    $result[] = $field;
-                }
-            }
-        }
-        return $result;
+    public function getEntity() {
+        return new $this->entity;
     }
 
+    /**
+     *
+     * @return string
+     */
+    public static function getRemoteAddress() {
+        $remote = new PhpEnvironment\RemoteAddress;
+        return $remote->getIpAddress();
+    }
+
+    /**
+     * @return array
+     */
+    public static function getStatusList() {
+        return array(
+            self::STATUS_ACTIVE => 'active',
+            self::STATUS_INACTIVE => 'not active',
+        );
+    }
+
+    /**
+     *
+     * @return array
+     */
+    /*   public function getClassMetadataByType() {
+      $annotationReader = new AnnotationReader();
+      $reflection = new \ReflectionClass($this->entity);
+
+      $result = array();
+      $classMetadata = $this->getClassMetadata();
+      foreach ($classMetadata as $field) {
+      if ($reflection->hasProperty($field)) {
+      $fieldInfo = $annotationReader->getPropertyAnnotations($reflection->getProperty($field));
+      if ($fieldInfo[0]->type !== 'datetime') { // to do
+      $result[] = $field;
+      }
+      }
+      }
+      return $result;
+      } */
 }

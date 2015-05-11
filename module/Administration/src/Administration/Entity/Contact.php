@@ -68,25 +68,13 @@ class Contact {
      * @ORM\PrePersist
      */
     function onPrePersist() {
+        $this->ip = \Administration\Model\BaseModel::getRemoteAddress();
         $this->createdAt = new \DateTime('now');
     }
 
     /**
      *
-     * @param array
-     */
-    public function exchangeArray(array $data) {
-        $this->name = isset($data['name']) ? $data['name'] : null;
-        $this->email = isset($data['email']) ? $data['email'] : null;
-        $this->subject = isset($data['subject']) ? $data['subject'] : null;
-        $this->message = isset($data['message']) ? $data['message'] : null;
-        $remote = new \Zend\Http\PhpEnvironment\RemoteAddress;
-        $this->ip = $remote->getIpAddress();
-    }
-
-    /**
-     *
-     * @return integer
+     * @return Contact
      */
     public function getId() {
         return $this->id;
@@ -154,7 +142,7 @@ class Contact {
      * @return string
      */
     public function getMessage() {
-        return $this->message;
+        return nl2br($this->message);
     }
 
     /**

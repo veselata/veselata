@@ -36,7 +36,7 @@ class AclServiceTest extends \PHPUnit_Framework_TestCase {
 
     public function setUp() {
         $this->config = array(
-            'roles' => array(\Administration\Model\Users::getUserRoleByKey(\Administration\Model\Users::TYPE_GUEST) => null,),
+            'roles' => array(\Administration\Model\Users::getTypeByKey(\Administration\Model\Users::TYPE_GUEST) => null,),
             'resources' => array(
                 'allow' => array(
                     'Application\Controller\IndexController' => array(
@@ -54,8 +54,8 @@ class AclServiceTest extends \PHPUnit_Framework_TestCase {
         $this->aclServiceMock = $this->getMock('Zend\Permissions\Acl\Acl');
 
         $this->serviceMock = $this->getMockBuilder($this->serviceName)
-            ->setConstructorArgs(array($this->aclServiceMock, $this->config))
-            ->getMock();
+                ->setConstructorArgs(array($this->aclServiceMock, $this->config))
+                ->getMock();
 
         $this->service = new $this->serviceName($this->aclServiceMock, $this->config);
     }
@@ -89,19 +89,19 @@ class AclServiceTest extends \PHPUnit_Framework_TestCase {
     public function testIsAllowed() {
         $param = null;
         $this->serviceMock->expects($this->any())
-            ->method('isAllowed')
-            ->with($param, $param, $param);
+                ->method('isAllowed')
+                ->with($param, $param, $param);
 
         $this->assertSame($this->service->isAllowed($param, $param, $param), $this->serviceMock->isAllowed($param, $param, $param));
     }
 
     public function testHasResource() {
         $resource = $this->getMockBuilder('Zend\Permissions\Acl\Resource\GenericResource')
-            ->disableOriginalConstructor()
-            ->getMock();
+                ->disableOriginalConstructor()
+                ->getMock();
         $this->serviceMock->expects($this->any())
-            ->method('hasResource')
-            ->with($this->equalTo($resource));
+                ->method('hasResource')
+                ->with($this->equalTo($resource));
 
         $this->assertSame($this->service->hasResource($resource), $this->serviceMock->hasResource($resource));
     }

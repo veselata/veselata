@@ -43,9 +43,9 @@ class User {
 
     /**
      *
-     * @ORM\Column(name="account_type", type="integer", nullable=false)
+     * @ORM\Column(name="type", type="integer", nullable=false)
      */
-    private $accountType = '0';
+    private $type = '0';
 
     /**
      *
@@ -64,17 +64,6 @@ class User {
      */
     function onPrePersist() {
         $this->createdAt = new \DateTime('now');
-    }
-
-    /**
-     *
-     * @param array
-     */
-    public function exchangeArray(array $data) {
-        $this->name = isset($data['name']) ? $data['name'] : null;
-        $this->username = isset($data['username']) ? $data['username'] : null;
-        $this->accountType = isset($data['accountType']) ? $data['accountType'] : 0;
-        $this->isActive = isset($data['isActive']) ? $data['isActive'] : 0;
     }
 
     /**
@@ -154,11 +143,11 @@ class User {
 
     /**
      *
-     * @param integer $accountType
+     * @param integer $type
      * @return User
      */
-    public function setAccountType($accountType) {
-        $this->accountType = $accountType;
+    public function setType($type) {
+        $this->type = $type;
 
         return $this;
     }
@@ -167,8 +156,8 @@ class User {
      *
      * @return integer
      */
-    public function getAccountType() {
-        return $this->accountType;
+    public function getType() {
+        return $this->type;
     }
 
     /**
@@ -218,6 +207,7 @@ class User {
             'id' => $this->getId(),
             'name' => $this->getName(),
             'username' => $this->getUsername(),
+            'type' => \Administration\Model\Users::getTypeByKey($this->getType()),
         );
     }
 

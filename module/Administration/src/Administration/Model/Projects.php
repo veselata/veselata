@@ -16,8 +16,8 @@ class Projects extends BaseModel implements IBaseModel {
         parent::__construct($entityManager, $entity);
     }
 
-    public function getAllWhereLike($criteria = array(), $orderBy = array(), $limit = null, $offset = null) {
-        return parent::getAllWhereLike($criteria, $orderBy, $limit, $offset);
+    public function getAll($criteria = array(), $orderBy = array(), $limit = null, $offset = null) {
+        return parent::getAll($criteria, $orderBy, $limit, $offset);
     }
 
     public function like($id) {

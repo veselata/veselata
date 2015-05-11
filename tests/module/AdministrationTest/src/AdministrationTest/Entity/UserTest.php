@@ -23,23 +23,14 @@ class UserTest extends \PHPUnit_Framework_TestCase {
 
     public function testOnPrePersist() {
         $this->entityMock->expects($this->once())
-            ->method('onPrePersist');
+                ->method('onPrePersist');
 
         $this->assertEquals($this->entity->onPrePersist(), $this->entityMock->onPrePersist());
     }
 
-    public function testExchangeArray() {
-        $data = array('name' => 'name');
-        $this->entityMock->expects($this->once())
-            ->method('exchangeArray')
-            ->with($this->equalTo($data));
-
-        $this->assertEquals($this->entity->exchangeArray($data), $this->entityMock->exchangeArray($data));
-    }
-
     public function testGetId() {
         $this->entityMock->expects($this->once())
-            ->method('getId');
+                ->method('getId');
 
         $this->assertEquals($this->entity->getId(), $this->entityMock->getId());
     }
@@ -49,8 +40,8 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setName($name);
 
         $this->entityMock->expects($this->once())
-            ->method('getName')
-            ->will($this->returnValue($name));
+                ->method('getName')
+                ->will($this->returnValue($name));
         $this->assertEquals($this->entity->getName(), $this->entityMock->getName());
     }
 
@@ -59,8 +50,8 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setUsername($username);
 
         $this->entityMock->expects($this->once())
-            ->method('getUsername')
-            ->will($this->returnValue($username));
+                ->method('getUsername')
+                ->will($this->returnValue($username));
         $this->assertEquals($this->entity->getUsername(), $this->entityMock->getUsername());
     }
 
@@ -79,14 +70,14 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($this->entity->verifyPassword($password, $hash));
     }
 
-    public function testSetGetAccountType() {
-        $accountType = 1;
-        $this->entity->setAccountType($accountType);
+    public function testSetGetType() {
+        $type = 1;
+        $this->entity->setType($type);
 
         $this->entityMock->expects($this->once())
-            ->method('getAccountType')
-            ->will($this->returnValue($accountType));
-        $this->assertEquals($this->entity->getAccountType(), $this->entityMock->getAccountType());
+                ->method('getType')
+                ->will($this->returnValue($type));
+        $this->assertEquals($this->entity->getType(), $this->entityMock->getType());
     }
 
     public function testSetGetIsActive() {
@@ -94,15 +85,15 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setIsActive($isActive);
 
         $this->entityMock->expects($this->once())
-            ->method('getIsActive')
-            ->will($this->returnValue($isActive));
+                ->method('getIsActive')
+                ->will($this->returnValue($isActive));
         $this->assertEquals($this->entity->getIsActive(), $this->entityMock->getIsActive());
     }
 
     public function testGetIsActiveReturnBoolean() {
         $this->entityMock->expects($this->once())
-            ->method('getIsActive')
-            ->will($this->returnValue(true));
+                ->method('getIsActive')
+                ->will($this->returnValue(true));
         $this->assertInternalType('boolean', $this->entityMock->getIsActive());
     }
 
@@ -111,16 +102,16 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setCreatedAt($createdAt);
 
         $this->entityMock->expects($this->once())
-            ->method('getCreatedAt')
-            ->will($this->returnValue($createdAt));
+                ->method('getCreatedAt')
+                ->will($this->returnValue($createdAt));
         $this->assertEquals($this->entity->getCreatedAt(), $this->entityMock->getCreatedAt());
     }
 
     public function testGetCreatedAtReturnDateTime() {
         $createdAt = new \DateTime();
         $this->entityMock->expects($this->once())
-            ->method('getCreatedAt')
-            ->will($this->returnValue($createdAt));
+                ->method('getCreatedAt')
+                ->will($this->returnValue($createdAt));
         $this->assertInternalType('object', $this->entityMock->getCreatedAt());
     }
 

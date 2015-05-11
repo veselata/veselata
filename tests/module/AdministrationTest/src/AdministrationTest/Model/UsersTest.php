@@ -54,22 +54,22 @@ class UsersTest extends \PHPUnit_Framework_TestCase {
 
     public function setUp() {
         $this->entityManagerMock = $this->getMockBuilder('Doctrine\ORM\EntityManager')
-            ->disableOriginalConstructor()
-            ->getMock();
+                ->disableOriginalConstructor()
+                ->getMock();
 
         $this->repositoryMock = $this->getMockBuilder('Doctrine\ORM\EntityRepository')
-            ->disableOriginalConstructor()
-            ->getMock();
+                ->disableOriginalConstructor()
+                ->getMock();
 
         $this->entityMock = $this->getMock($this->entity);
 
         $this->baseModelMock = $this->getMockBuilder('Administration\Model\BaseModel')
-            ->setConstructorArgs(array($this->entityManagerMock, $this->entityMock))
-            ->getMockForAbstractClass();
+                ->setConstructorArgs(array($this->entityManagerMock, $this->entityMock))
+                ->getMockForAbstractClass();
 
         $this->entityModelMock = $this->getMockBuilder($this->model)
-            ->setConstructorArgs(array($this->entityManagerMock, $this->entityMock))
-            ->getMockForAbstractClass();
+                ->setConstructorArgs(array($this->entityManagerMock, $this->entityMock))
+                ->getMockForAbstractClass();
 
         $this->entityModel = new $this->model($this->entityManagerMock, $this->entityMock);
     }
@@ -77,13 +77,13 @@ class UsersTest extends \PHPUnit_Framework_TestCase {
     public function testGetAll() {
         $criteria = array('isActive' => true);
         $this->entityManagerMock->expects($this->any())
-            ->method('getRepository')
-            ->will($this->returnValue($this->repositoryMock));
+                ->method('getRepository')
+                ->will($this->returnValue($this->repositoryMock));
 
         $this->repositoryMock->expects($this->any())
-            ->method('findBy')
-            ->with($criteria)
-            ->will($this->returnValue($this->entityModelMock));
+                ->method('findBy')
+                ->with($criteria)
+                ->will($this->returnValue($this->entityModelMock));
 
         $this->assertSame($this->entityModel->getAll($criteria), $this->baseModelMock->getAll($criteria));
     }
@@ -92,77 +92,71 @@ class UsersTest extends \PHPUnit_Framework_TestCase {
         $id = 1;
 
         $this->entityManagerMock->expects($this->any())
-            ->method('getRepository')
-            ->will($this->returnValue($this->repositoryMock));
+                ->method('getRepository')
+                ->will($this->returnValue($this->repositoryMock));
 
         $this->repositoryMock->expects($this->any())
-            ->method('find')
-            ->with($this->equalTo($id));
+                ->method('find')
+                ->with($this->equalTo($id));
 
         $this->assertSame($this->entityModel->get($id), $this->baseModelMock->get($id));
     }
 
     public function testAdd() {
-        $data = array('title' => 'title');
-
-        $this->entityMock->expects($this->any())
-            ->method('exchangeArray')
-            ->with($this->equalTo($data));
+        $this->entityManagerMock->expects($this->any())
+                ->method('persist')
+                ->with($this->equalTo($this->entityMock));
 
         $this->entityManagerMock->expects($this->any())
-            ->method('persist')
-            ->with($this->equalTo($this->entityMock));
+                ->method('flush');
 
-        $this->entityManagerMock->expects($this->any())
-            ->method('flush');
-
-        $this->assertSame($this->entityModel->add($data), $this->baseModelMock->add($data));
+        $this->assertSame($this->entityModel->add($this->entityMock), $this->baseModelMock->add($this->entityMock));
     }
 
     public function testEdit() {
-        $data = array('id' => 1);
-
-        $this->entityManagerMock->expects($this->any())
-            ->method('getRepository')
-            ->will($this->returnValue($this->repositoryMock));
-
-        $this->repositoryMock->expects($this->any())
-            ->method('find')
-            ->with($this->equalTo($data['id']))
-            ->will($this->returnValue($this->entityMock));
+        $id = 1;
 
         $this->entityMock->expects($this->any())
-            ->method('exchangeArray')
-            ->with($this->equalTo($data));
+                ->method('getId')
+                ->will($this->returnValue($id));
 
         $this->entityManagerMock->expects($this->any())
-            ->method('persist')
-            ->with($this->equalTo($this->entityMock));
+                ->method('getRepository')
+                ->will($this->returnValue($this->repositoryMock));
+
+        $this->repositoryMock->expects($this->any())
+                ->method('find')
+                ->with($this->equalTo($id))
+                ->will($this->returnValue($this->entityMock));
 
         $this->entityManagerMock->expects($this->any())
-            ->method('flush');
+                ->method('persist')
+                ->with($this->equalTo($this->entityMock));
 
-        $this->assertSame($this->entityModel->edit($data), $this->baseModelMock->edit($data));
+        $this->entityManagerMock->expects($this->any())
+                ->method('flush');
+
+        $this->assertSame($this->entityModel->edit($this->entityMock), $this->baseModelMock->edit($this->entityMock));
     }
 
     public function testDelete() {
         $id = 1;
 
         $this->entityManagerMock->expects($this->any())
-            ->method('getRepository')
-            ->will($this->returnValue($this->repositoryMock));
+                ->method('getRepository')
+                ->will($this->returnValue($this->repositoryMock));
 
         $this->repositoryMock->expects($this->any())
-            ->method('find')
-            ->with($this->equalTo($id))
-            ->will($this->returnValue($this->entityModelMock));
+                ->method('find')
+                ->with($this->equalTo($id))
+                ->will($this->returnValue($this->entityModelMock));
 
         $this->entityManagerMock->expects($this->any())
-            ->method('remove')
-            ->with($this->equalTo($this->entityModelMock));
+                ->method('remove')
+                ->with($this->equalTo($this->entityModelMock));
 
         $this->entityManagerMock->expects($this->any())
-            ->method('flush');
+                ->method('flush');
 
         $this->assertSame($this->entityModel->delete($id), $this->baseModelMock->delete($id));
     }

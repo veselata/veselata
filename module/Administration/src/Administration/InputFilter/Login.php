@@ -30,7 +30,6 @@ class Login implements InputFilterAwareInterface {
         if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
             $factory = new InputFactory();
-
             $inputFilter->add($factory->createInput(array(
                         'name' => 'username',
                         'required' => true,
@@ -49,7 +48,6 @@ class Login implements InputFilterAwareInterface {
                             ),
                         ),
             )));
-
             $inputFilter->add($factory->createInput(array(
                         'name' => 'password',
                         'required' => true,
@@ -64,10 +62,8 @@ class Login implements InputFilterAwareInterface {
                             ),
                         ),
             )));
-
             $this->inputFilter = $inputFilter;
         }
-
         return $this->inputFilter;
     }
 

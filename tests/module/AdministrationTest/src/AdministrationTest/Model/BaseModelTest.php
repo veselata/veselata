@@ -26,6 +26,12 @@ class BaseModelTest extends \PHPUnit_Framework_TestCase {
      *
      * @var PHPUnit_Framework_TestCase
      */
+    public $testRepoMock;
+
+    /**
+     *
+     * @var PHPUnit_Framework_TestCase
+     */
     public $baseModelMock;
 
     public function setUp() {
@@ -38,6 +44,8 @@ class BaseModelTest extends \PHPUnit_Framework_TestCase {
                 ->getMock();
 
         $this->testRepo = new \Administration\Entity\User;
+
+        $this->testRepoMock = $this->getMock(get_class($this->testRepo));
 
         $this->baseModelMock = $this->getMockBuilder('Administration\Model\BaseModel')
                 ->setConstructorArgs(array($this->entityManagerMock, $this->testRepo))
@@ -79,8 +87,6 @@ class BaseModelTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testAdd() {
-        $data = array('title' => 'title');
-
         $this->entityManagerMock->expects($this->once())
                 ->method('persist')
                 ->with($this->equalTo($this->testRepo));
@@ -88,17 +94,21 @@ class BaseModelTest extends \PHPUnit_Framework_TestCase {
         $this->entityManagerMock->expects($this->once())
                 ->method('flush');
 
-        $this->baseModelMock->add($data);
+        $this->baseModelMock->add($this->testRepo);
     }
 
     public function testAddInvalidArgument() {
-        $data = 'text';
+        $object = 'text';
         $this->setExpectedException('Exception');
-        $this->baseModelMock->add($data);
+        $this->baseModelMock->add($object);
     }
 
     public function testEdit() {
-        $data = array('id' => 1);
+        $id = 1;
+
+        $this->testRepoMock->expects($this->once())
+                ->method('getId')
+                ->will($this->returnValue($id));
 
         $this->entityManagerMock->expects($this->once())
                 ->method('getRepository')
@@ -106,34 +116,43 @@ class BaseModelTest extends \PHPUnit_Framework_TestCase {
 
         $this->repositoryMock->expects($this->once())
                 ->method('find')
-                ->with($this->equalTo($data['id']))
-                ->will($this->returnValue($this->testRepo));
+                ->will($this->returnValue($this->testRepoMock));
 
         $this->entityManagerMock->expects($this->once())
                 ->method('persist')
-                ->with($this->equalTo($this->testRepo));
+                ->with($this->equalTo($this->testRepoMock));
 
         $this->entityManagerMock->expects($this->once())
                 ->method('flush');
 
-        $this->baseModelMock->edit($data);
+        $this->baseModelMock->edit($this->testRepoMock);
     }
 
-    public function testEditInvalidParameter() {
-        $data = 'text';
+    public function testEditInvalidId() {
         $this->setExpectedException('Exception');
-        $this->baseModelMock->edit($data);
+
+        $id = -1;
+        $this->testRepoMock->expects($this->once())
+                ->method('getId')
+                ->will($this->returnValue($id));
+
+        $this->baseModelMock->edit($this->testRepoMock);
     }
 
-    public function testEditInvalidArgument() {
-        $data = array('text');
+    public function testEditInvalidObject() {
         $this->setExpectedException('Exception');
-        $this->baseModelMock->edit($data);
+
+        $object = new \stdClass();
+        $this->baseModelMock->edit($object);
     }
 
     public function testEditEntityNotFound() {
-        $data = array('id' => 1);
         $this->setExpectedException('Exception');
+
+        $id = 1;
+        $this->testRepoMock->expects($this->once())
+                ->method('getId')
+                ->will($this->returnValue($id));
 
         $this->entityManagerMock->expects($this->once())
                 ->method('getRepository')
@@ -141,9 +160,10 @@ class BaseModelTest extends \PHPUnit_Framework_TestCase {
 
         $this->repositoryMock->expects($this->once())
                 ->method('find')
-                ->with($this->equalTo($data['id']));
+                ->with($this->equalTo($id))
+                ->will($this->returnValue(null));
 
-        $this->baseModelMock->edit($data);
+        $this->baseModelMock->edit($this->testRepoMock);
     }
 
     public function testDelete() {

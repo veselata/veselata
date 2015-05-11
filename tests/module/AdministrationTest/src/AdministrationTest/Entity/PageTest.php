@@ -23,23 +23,14 @@ class PageTest extends \PHPUnit_Framework_TestCase {
 
     public function testOnPrePersist() {
         $this->entityMock->expects($this->once())
-            ->method('onPrePersist');
+                ->method('onPrePersist');
 
         $this->assertEquals($this->entity->onPrePersist(), $this->entityMock->onPrePersist());
     }
 
-    public function testExchangeArray() {
-        $data = array('title' => 'title');
-        $this->entityMock->expects($this->once())
-            ->method('exchangeArray')
-            ->with($this->equalTo($data));
-
-        $this->assertEquals($this->entity->exchangeArray($data), $this->entityMock->exchangeArray($data));
-    }
-
     public function testGetId() {
         $this->entityMock->expects($this->once())
-            ->method('getId');
+                ->method('getId');
 
         $this->assertEquals($this->entity->getId(), $this->entityMock->getId());
     }
@@ -49,8 +40,8 @@ class PageTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setParentId($parentId);
 
         $this->entityMock->expects($this->once())
-            ->method('getParentId')
-            ->will($this->returnValue($parentId));
+                ->method('getParentId')
+                ->will($this->returnValue($parentId));
         $this->assertEquals($this->entity->getParentId(), $this->entityMock->getParentId());
     }
 
@@ -59,8 +50,8 @@ class PageTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setMenu($menu);
 
         $this->entityMock->expects($this->once())
-            ->method('getMenu')
-            ->will($this->returnValue($menu));
+                ->method('getMenu')
+                ->will($this->returnValue($menu));
         $this->assertEquals($this->entity->getMenu(), $this->entityMock->getMenu());
     }
 
@@ -69,8 +60,8 @@ class PageTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setRoute($route);
 
         $this->entityMock->expects($this->once())
-            ->method('getRoute')
-            ->will($this->returnValue($route));
+                ->method('getRoute')
+                ->will($this->returnValue($route));
         $this->assertEquals($this->entity->getRoute(), $this->entityMock->getRoute());
     }
 
@@ -79,8 +70,8 @@ class PageTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setController($controller);
 
         $this->entityMock->expects($this->once())
-            ->method('getController')
-            ->will($this->returnValue($controller));
+                ->method('getController')
+                ->will($this->returnValue($controller));
         $this->assertEquals($this->entity->getController(), $this->entityMock->getController());
     }
 
@@ -89,8 +80,8 @@ class PageTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setAction($action);
 
         $this->entityMock->expects($this->once())
-            ->method('getAction')
-            ->will($this->returnValue($action));
+                ->method('getAction')
+                ->will($this->returnValue($action));
         $this->assertEquals($this->entity->getAction(), $this->entityMock->getAction());
     }
 
@@ -99,8 +90,8 @@ class PageTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setTitle($title);
 
         $this->entityMock->expects($this->once())
-            ->method('getTitle')
-            ->will($this->returnValue($title));
+                ->method('getTitle')
+                ->will($this->returnValue($title));
         $this->assertEquals($this->entity->getTitle(), $this->entityMock->getTitle());
     }
 
@@ -109,8 +100,8 @@ class PageTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setDescription($description);
 
         $this->entityMock->expects($this->once())
-            ->method('getDescription')
-            ->will($this->returnValue($description));
+                ->method('getDescription')
+                ->will($this->returnValue($description));
         $this->assertEquals($this->entity->getDescription(), $this->entityMock->getDescription());
     }
 
@@ -119,8 +110,8 @@ class PageTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setSortOrder($sortOrder);
 
         $this->entityMock->expects($this->once())
-            ->method('getSortOrder')
-            ->will($this->returnValue($sortOrder));
+                ->method('getSortOrder')
+                ->will($this->returnValue($sortOrder));
         $this->assertEquals($this->entity->getSortOrder(), $this->entityMock->getSortOrder());
     }
 
@@ -129,15 +120,15 @@ class PageTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setIsActive($isActive);
 
         $this->entityMock->expects($this->once())
-            ->method('getIsActive')
-            ->will($this->returnValue($isActive));
+                ->method('getIsActive')
+                ->will($this->returnValue($isActive));
         $this->assertEquals($this->entity->getIsActive(), $this->entityMock->getIsActive());
     }
 
     public function testGetIsActiveReturnBoolean() {
         $this->entityMock->expects($this->once())
-            ->method('getIsActive')
-            ->will($this->returnValue(true));
+                ->method('getIsActive')
+                ->will($this->returnValue(true));
         $this->assertInternalType('boolean', $this->entityMock->getIsActive());
     }
 
@@ -146,16 +137,16 @@ class PageTest extends \PHPUnit_Framework_TestCase {
         $this->entity->setCreatedAt($createdAt);
 
         $this->entityMock->expects($this->once())
-            ->method('getCreatedAt')
-            ->will($this->returnValue($createdAt));
+                ->method('getCreatedAt')
+                ->will($this->returnValue($createdAt));
         $this->assertEquals($this->entity->getCreatedAt(), $this->entityMock->getCreatedAt());
     }
 
     public function testGetCreatedAtReturnDateTime() {
         $createdAt = new \DateTime();
         $this->entityMock->expects($this->once())
-            ->method('getCreatedAt')
-            ->will($this->returnValue($createdAt));
+                ->method('getCreatedAt')
+                ->will($this->returnValue($createdAt));
         $this->assertInternalType('object', $this->entityMock->getCreatedAt());
     }
 

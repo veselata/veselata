@@ -91,14 +91,14 @@ class AuthService extends AbstractValidator {
      * @return array
      */
     public function getUserIdentity() {
-        $userRoleList = \Administration\Model\Users::getUserRoleList();
+        $userRoleList = \Administration\Model\Users::getTypeList();
         $defaultRole = $userRoleList[\Administration\Model\Users::TYPE_GUEST];
         $identity = array('role' => $defaultRole);
 
         if ($this->authService->hasIdentity()) {
             $storage = $this->authService->getStorage()->read();
             $identity['name'] = $storage->getName();
-            $identity['role'] = isset($userRoleList[$storage->getAccountType()]) ? $userRoleList[$storage->getAccountType()] : $defaultRole;
+            $identity['role'] = isset($userRoleList[$storage->getType()]) ? $userRoleList[$storage->getType()] : $defaultRole;
             $identity['username'] = $storage->getUsername();
         }
 

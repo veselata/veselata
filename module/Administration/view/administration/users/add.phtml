@@ -1,1 +1,6 @@
-add
+<h1>Add</h1>
+<?php echo $this->flashMessenger()->renderCurrent(); ?>
+<?php
+$form->setAttribute('action', $this->url('users', array('action' => 'add')));
+echo $this->form()->render($form);
+

@@ -14,24 +14,40 @@ class NotificationService {
     protected $adminMail = 'vesi.spasova@gmail.com'; //'veselina_spasova@abv.bg';
     protected $from = 'veselata@localhost';
 
+    /**
+     *
+     * @return array
+     */
     public function subjectLists() {
         return array(
             self::TYPE_CONTACT => 'Contact Form',
         );
     }
 
+    /**
+     *
+     * @param string $adminMail
+     */
     public function setAdminMail($adminMail) {
         $this->adminMail = $adminMail;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getAdminMail() {
         return $this->adminMail;
     }
 
-    public function notify($messageBody = array(), $type = self::TYPE_CONTACT) {
+    public function notify($object, $type = self::TYPE_CONTACT) {
+        $data = array_filter(get_class_methods($object), function ($element) {
+            return preg_match('/^get/', $element) === 1;
+        });
+
         $mailBody = '';
-        foreach ($messageBody as $key => $data) {
-            $mailBody .= '<p><b>' . ucfirst($key) . '</b>: ' . nl2br($data) . '</p>';
+        foreach ($data as $value) {
+            $mailBody .= '<p><b>' . str_replace('get', '', $value) . '</b>: ' . print_r($object->$value(), true) . '</p>';
         }
 
         $htmlPart = new Mime\Part($mailBody);
