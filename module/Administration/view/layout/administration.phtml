@@ -18,7 +18,7 @@
 
     </head>
     <body>
-        <div  class="container"><?php //var_dump($acl->isAllowed('user', 'dashboard'));  ?>
+        <div  class="container">
             <header>
                 <nav class="col-md-3"><a href="<?php echo $this->url('dashboard'); ?>"><img src="<?php echo $this->basePath() . '/images/logo.png'; ?>" alt="Veselata" /></a></nav>
                 <aside class="col-md-9"><?php echo $this->partial('partial/logged', array('identity' => $identity)); ?></aside>
@@ -31,6 +31,8 @@
         <?php
         echo $this->headScript()
                 ->prependFile($this->basePath() . '/js/admin.js')
+                ->prependFile($this->basePath() . '/libs/ckfinder/ckfinder.js')
+                ->prependFile($this->basePath() . '/libs/ckeditor/ckeditor.js')
                 ->prependFile($this->basePath() . '/libs/jquery-bootgrid/dist/jquery.bootgrid.min.js')
                 ->prependFile($this->basePath() . '/libs/bootstrap/dist/js/bootstrap.min.js')
                 ->prependFile($this->basePath() . '/libs/jquery/dist/jquery.min.js');

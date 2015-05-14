@@ -8,7 +8,7 @@ use Zend\Crypt\Password\Bcrypt;
 /**
  * User
  *
- * @ORM\Table(name="users", indexes={@ORM\Index(name="is_active", columns={"is_active"}),
+ * @ORM\Table(name="users", indexes={@ORM\Index(name="status", columns={"status"}),
  * @ORM\Index(name="username", columns={"username"})})
  * @ORM\HasLifecycleCallbacks
  * @ORM\Entity
@@ -49,9 +49,9 @@ class User {
 
     /**
      *
-     * @ORM\Column(name="is_active", type="boolean", nullable=false)
+     * @ORM\Column(name="status", type="integer", nullable=false)
      */
-    private $isActive = '0';
+    private $status = '0';
 
     /**
      *
@@ -162,21 +162,21 @@ class User {
 
     /**
      *
-     * @param boolean $isActive
+     * @param integer $status
      * @return User
      */
-    public function setIsActive($isActive) {
-        $this->isActive = (boolean) $isActive;
+    public function setStatus($status) {
+        $this->status = $status;
 
         return $this;
     }
 
     /**
      *
-     * @return boolean
+     * @return integer
      */
-    public function getIsActive() {
-        return $this->isActive;
+    public function getStatus() {
+        return $this->status;
     }
 
     /**
@@ -208,6 +208,7 @@ class User {
             'name' => $this->getName(),
             'username' => $this->getUsername(),
             'type' => \Administration\Model\Users::getTypeByKey($this->getType()),
+            'status' => \Administration\Model\BaseModel::getStatusByKey($this->getStatus()),
         );
     }
 

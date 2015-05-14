@@ -51,7 +51,7 @@ class AuthService extends AbstractValidator {
 
         if ($authResult->isValid()) {
             $identity = $authResult->getIdentity();
-            if (!$identity->getIsActive()) {
+            if ($identity->getStatus() !== \Administration\Model\BaseModel::STATUS_ACTIVE) {
                 $this->error(self::NOTALLOWED);
                 return false;
             }

@@ -79,11 +79,11 @@ class Page {
     private $sortOrder;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="is_active", type="boolean", nullable=false)
+     * @ORM\Column(name="status", type="integer", nullable=false)
      */
-    private $isActive = '0';
+    private $status = '0';
 
     /**
      * @var \DateTime
@@ -262,21 +262,21 @@ class Page {
 
     /**
      *
-     * @param boolean
+     * @param integer
      * @return Page
      */
-    public function setIsActive($isActive) {
-        $this->isActive = (boolean) $isActive;
+    public function setStatus($status) {
+        $this->status = $status;
 
         return $this;
     }
 
     /**
      *
-     * @return boolen
+     * @return integer
      */
-    public function getIsActive() {
-        return $this->isActive;
+    public function getStatus() {
+        return $this->status;
     }
 
     /**

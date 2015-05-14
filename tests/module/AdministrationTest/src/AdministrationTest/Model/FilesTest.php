@@ -75,7 +75,7 @@ class FilesTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGetAll() {
-        $criteria = array('isActive' => true);
+        $criteria = array('status' => \Administration\Model\BaseModel::STATUS_INACTIVE);
         $this->entityManagerMock->expects($this->any())
                 ->method('getRepository')
                 ->will($this->returnValue($this->repositoryMock));

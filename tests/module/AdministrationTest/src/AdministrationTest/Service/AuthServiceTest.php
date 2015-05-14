@@ -83,8 +83,8 @@ class AuthServiceTest extends \PHPUnit_Framework_TestCase {
                 ->will($this->returnValue($this->identityMock));
 
         $this->identityMock->expects($this->once())
-                ->method('getIsActive')
-                ->will($this->returnValue(true));
+                ->method('getStatus')
+                ->will($this->returnValue(\Administration\Model\BaseModel::STATUS_ACTIVE));
 
         $storage = $this->getMockBuilder('DoctrineModule\Authentication\Storage\ObjectRepository')
                 ->disableOriginalConstructor()
@@ -137,8 +137,8 @@ class AuthServiceTest extends \PHPUnit_Framework_TestCase {
                 ->will($this->returnValue($this->identityMock));
 
         $this->identityMock->expects($this->once())
-                ->method('getIsActive')
-                ->will($this->returnValue(false));
+                ->method('getStatus')
+                ->will($this->returnValue(\Administration\Model\BaseModel::STATUS_INACTIVE));
 
         $this->assertFalse($this->service->isValid($identity));
     }

@@ -28,13 +28,10 @@ class RestController extends AbstractRestfulController {
         $criteria = array();
         $data['searchPhrase'] = $this->params()->fromPost('searchPhrase');
         if (strlen($data['searchPhrase']) > 0) {
-            $fields = $this->model->getClassMetadata();
+            $fields = $this->model->getClassMetadata(array('id', 'createdAt'));
             foreach ($fields as $field) {
-                if ($field === 'type' && method_exists($this->model, 'getTypeByValue')) {
-                    $typeId = $this->model->getTypeByValue($data['searchPhrase']);
-                    if (!is_null($typeId)) {
-                        $criteria[$field] = $typeId;
-                    }
+                if (in_array($field, array('type', 'status', 'position'))) {
+                    $this->searchFieldByType($field, $data['searchPhrase'], $criteria);
                 } else {
                     $criteria[$field] = $data['searchPhrase'];
                 }
@@ -42,7 +39,6 @@ class RestController extends AbstractRestfulController {
         }
 
         $result = $this->model->getAllWhereLike($criteria, $data['sort'], $data['rowCount'], (($data['current'] - 1) * $data['rowCount']));
-
         $data['total'] = count($this->model->getAllWhereLike($criteria, $data['sort']));
         $data['rows'] = array();
         foreach ($result as $row) {
@@ -91,6 +87,21 @@ class RestController extends AbstractRestfulController {
         $this->model = $this->getServiceLocator()->get($currentModel);
         if (!$this->model instanceof \Administration\Model\IBaseModel) {
             throw new \Exception('Current model in not allowed');
+        }
+    }
+
+    /**
+     *
+     * @param string $field
+     * @param string $searchPhrase
+     * @return array
+     */
+    protected function searchFieldByType($field, $searchPhrase, &$criteria = array()) {
+        if (method_exists($this->model, 'get' . ucfirst($field) . 'ByValue')) {
+            $typeId = $this->model->{'get' . ucfirst($field) . 'ByValue'}($searchPhrase);
+            if (!is_null($typeId)) {
+                $criteria[$field] = $typeId;
+            }
         }
     }
 

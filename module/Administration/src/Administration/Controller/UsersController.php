@@ -13,7 +13,7 @@ class UsersController extends AbstractActionController {
      *
      * @var Administration\Model\Users
      */
-    protected $usersModel;
+    protected $model;
 
     /**
      *
@@ -21,8 +21,8 @@ class UsersController extends AbstractActionController {
      */
     protected $form;
 
-    public function __construct(Users $usersModel, UserForm $form) {
-        $this->usersModel = $usersModel;
+    public function __construct(Users $model, UserForm $form) {
+        $this->model = $model;
         $this->form = $form;
     }
 
@@ -32,14 +32,14 @@ class UsersController extends AbstractActionController {
     }
 
     public function addAction() {
-        $object = $this->usersModel->getEntity();
+        $object = $this->model->getEntity();
         $this->form->bind($object);
 
         if ($this->getRequest()->isPost()) {
             $this->form->setData($this->getRequest()->getPost());
 
             if ($this->form->isValid()) {
-                $this->usersModel->add($object);
+                $this->model->add($object);
                 $this->flashMessenger()->addMessage('Your data was saved successfully.');
                 $this->redirect()->toRoute('users');
             } else {
@@ -51,14 +51,14 @@ class UsersController extends AbstractActionController {
     }
 
     public function editAction() {
-        $object = $this->usersModel->get($this->params()->fromRoute('id'));
+        $object = $this->model->get($this->params()->fromRoute('id'));
         $this->form->bind($object);
 
         if ($this->getRequest()->isPost()) {
             $this->form->setData($this->getRequest()->getPost());
 
             if ($this->form->isValid()) {
-                $this->usersModel->persist($object);
+                $this->model->edit($object);
                 $this->flashMessenger()->addMessage('Your data was saved successfully.');
                 $this->redirect()->toRoute('users');
             } else {
@@ -70,6 +70,19 @@ class UsersController extends AbstractActionController {
     }
 
     public function deleteAction() {
+        $id = $this->params()->fromRoute('id');
+        try {
+            $this->model->delete($id);
+            $this->flashMessenger()->addMessage('Item was removed successfully');
+        } catch (Exception $ex) {
+            // log error
+            $this->flashMessenger()->addMessage('Unable to remove item');
+        }
+
+        $this->redirect()->toRoute('users');
+    }
+
+    public function passwordAction() {
         return new ViewModel(array());
     }
 

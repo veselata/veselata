@@ -7,7 +7,7 @@ use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
 
-class User extends Fieldset implements InputFilterProviderInterface {
+class Box extends Fieldset implements InputFilterProviderInterface {
 
     /**
      *
@@ -19,12 +19,12 @@ class User extends Fieldset implements InputFilterProviderInterface {
      *
      * @var string
      */
-    protected $targetClass = 'Administration\Entity\User';
+    protected $targetClass = 'Administration\Entity\Box';
 
     public function __construct(EntityManager $entityManager) {
         $this->entityManager = $entityManager;
 
-        parent::__construct('user-fieldset');
+        parent::__construct('box-fieldset');
 
         $this->setHydrator(new DoctrineHydrator($this->entityManager, $this->targetClass));
 
@@ -35,39 +35,31 @@ class User extends Fieldset implements InputFilterProviderInterface {
 
         $this->add(array(
             'type' => 'text',
-            'name' => 'name',
+            'name' => 'title',
             'options' => array(
-                'label' => 'Name'
+                'label' => 'Title'
             ),
             'attributes' => array(
                 'class' => 'required',
             ),
         ));
-
-        $this->add(
-                array(
-                    'type' => 'Administration\Form\Element\Password',
-                    'name' => 'password',
-                )
-        );
 
         $this->add(array(
-            'type' => 'text',
-            'name' => 'username',
+            'type' => 'Administration\Form\Element\Textarea',
+            'name' => 'description',
             'options' => array(
-                'label' => 'Username'
-            ),
-            'attributes' => array(
-                'class' => 'required',
+                'label' => 'Description'
             ),
         ));
+
 
         $this->add(array(
             'type' => 'select',
-            'name' => 'type',
+            'name' => 'position',
+            'value' => \Administration\Model\Boxes::POSITION_TOP,
             'options' => array(
-                'label' => 'Account type',
-                'value_options' => \Administration\Model\Users::getTypeList(),
+                'label' => 'Position',
+                'options' => \Administration\Model\Boxes::getPositionList(),
             ),
         ));
 
@@ -84,25 +76,8 @@ class User extends Fieldset implements InputFilterProviderInterface {
 
     public function getInputFilterSpecification() {
         return array(
-            'name' => array(
+            'title' => array(
                 'required' => true
-            ),
-            'username' => array(
-                'required' => true,
-                'filters' => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name' => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min' => 5,
-                            'max' => 255,
-                        ),
-                    ),
-                ),
             ),
         );
     }

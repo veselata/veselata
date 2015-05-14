@@ -42,7 +42,7 @@ abstract class BaseModel {
      * @param int $limit
      * @param int $offset
      */
-    public function getAll($criteria = array('isActive' => true), $orderBy = array('sortOrder' => 'desc'), $limit = null, $offset = null) {
+    public function getAll($criteria = array('status' => \Administration\Model\BaseModel::STATUS_ACTIVE), $orderBy = array('sortOrder' => 'desc'), $limit = null, $offset = null) {
         /*
           $this->entityManager->getConnection()
           ->getConfiguration()
@@ -58,7 +58,7 @@ abstract class BaseModel {
      * @param int $limit
      * @param int $offset
      */
-    public function getAllWhereLike($criteria = array('isActive' => true), $orderBy = array('sortOrder' => 'desc'), $limit = null, $offset = null) {
+    public function getAllWhereLike($criteria = array('status' => \Administration\Model\BaseModel::STATUS_ACTIVE), $orderBy = array('sortOrder' => 'desc'), $limit = null, $offset = null) {
         $qb = $this->entityManager->createQueryBuilder();
         $expr = $this->entityManager->getExpressionBuilder();
         $qb->select('entity')->from($this->entity, 'entity');
@@ -168,8 +168,8 @@ abstract class BaseModel {
      *
      * @return array
      */
-    public function getClassMetadata() {
-        return $this->entityManager->getClassMetadata($this->entity)->getFieldNames();
+    public function getClassMetadata($skip = array()) {
+        return array_diff($this->entityManager->getClassMetadata($this->entity)->getFieldNames(), $skip);
     }
 
     /**
@@ -195,8 +195,26 @@ abstract class BaseModel {
     public static function getStatusList() {
         return array(
             self::STATUS_ACTIVE => 'active',
-            self::STATUS_INACTIVE => 'not active',
+            self::STATUS_INACTIVE => 'inactive',
         );
+    }
+
+    /**
+     * @return string
+     */
+    public static function getStatusByKey($key) {
+        $list = self::getStatusList();
+        return isset($list[$key]) ? $list[$key] : self::STATUS_INACTIVE;
+    }
+
+    /**
+     * @return string|false
+     */
+    public function getStatusByValue($value) {
+        $list = self::getStatusList();
+        if (in_array($value, array_values($list))) {
+            return array_search($value, $list);
+        }
     }
 
     /**

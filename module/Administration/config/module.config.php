@@ -98,4 +98,10 @@ return array(
             ),
         )
     ),
+    'form_elements' => array(
+        'invokables' => array(
+            'cktextarea' => 'Administration\Form\Element\Textarea',
+            'user-password' => 'Administration\Form\Element\Password',
+        ),
+    ),
 );

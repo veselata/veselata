@@ -1,8 +1,16 @@
 <?php if ($identity): ?>
-    <p>Hi, <?php echo $this->escapeHtml($identity['name']); ?>
-        ( <a href="<?php
-        echo $this->url('dashboard', array(
-            'action' => 'logout',
-        ));
-        ?>" ><?php echo $this->translate('Logout'); ?></a> )</p>
-<?php endif; ?>
+    <ul class="nav navbar-top-links navbar-right">
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="false">
+                Hi, <?php echo $this->escapeHtml($identity['name']); ?> <i class="glyphicon glyphicon-user"></i>  <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-user">
+                <li><a href="#"><?php echo $this->translate('User Profile'); ?></a></li>
+                <li><a href="#"><?php echo $this->translate('Settings'); ?></a></li>
+                <li class="divider"></li>
+                <li><a href="<?php echo $this->url('dashboard', array('action' => 'logout')); ?>"><?php echo $this->translate('Logout'); ?></a></li>
+            </ul>
+        </li>
+    </ul>
+    <?php
+ endif;

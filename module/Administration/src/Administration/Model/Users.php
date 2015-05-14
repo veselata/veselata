@@ -23,15 +23,6 @@ class Users extends BaseModel implements IBaseModel {
     }
 
     /**
-     *
-     * @param type $criteria
-     * @param type $orderBy
-     */
-    public function getAllWhereLike($criteria = array(), $orderBy = array('id' => 'desc'), $limit = null, $offset = null) {
-        return parent::getAllWhereLike($criteria, $orderBy, $limit, $offset);
-    }
-
-    /**
      * @return array
      */
     public static function getTypeList() {
@@ -46,17 +37,17 @@ class Users extends BaseModel implements IBaseModel {
      * @return string
      */
     public static function getTypeByKey($key) {
-        $listTypes = self::getTypeList();
-        return isset($listTypes[$key]) ? $listTypes[$key] : self::TYPE_GUEST;
+        $list = self::getTypeList();
+        return isset($list[$key]) ? $list[$key] : self::TYPE_GUEST;
     }
 
     /**
      * @return string|false
      */
     public function getTypeByValue($value) {
-        $listTypes = self::getTypeList();
-        if (in_array($value, array_values($listTypes))) {
-            return array_search($value, $listTypes);
+        $list = self::getTypeList();
+        if (in_array($value, array_values($list))) {
+            return array_search($value, $list);
         }
     }
 

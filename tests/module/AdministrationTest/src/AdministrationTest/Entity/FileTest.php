@@ -85,21 +85,14 @@ class FileTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($this->entity->getSortOrder(), $this->entityMock->getSortOrder());
     }
 
-    public function testSetGetIsActive() {
-        $isActive = true;
-        $this->entity->setIsActive($isActive);
+    public function testSetGetStatus() {
+        $status = \Administration\Model\BaseModel::STATUS_ACTIVE;
+        $this->entity->setStatus($status);
 
         $this->entityMock->expects($this->once())
-                ->method('getIsActive')
-                ->will($this->returnValue($isActive));
-        $this->assertEquals($this->entity->getIsActive(), $this->entityMock->getIsActive());
-    }
-
-    public function testGetIsActiveReturnBoolean() {
-        $this->entityMock->expects($this->once())
-                ->method('getIsActive')
-                ->will($this->returnValue(true));
-        $this->assertInternalType('boolean', $this->entityMock->getIsActive());
+                ->method('getStatus')
+                ->will($this->returnValue($status));
+        $this->assertEquals($this->entity->getStatus(), $this->entityMock->getStatus());
     }
 
     public function testSetGetCreatedAt() {

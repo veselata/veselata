@@ -38,11 +38,11 @@ class Tag {
     private $sortOrder;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="is_active", type="boolean", nullable=false)
+     * @ORM\Column(name="status", type="integer", nullable=false)
      */
-    private $isActive = '0';
+    private $status = '0';
 
     /**
      * @var \DateTime
@@ -160,19 +160,19 @@ class Tag {
 
     /**
      *
-     * @return boolean
+     * @return integer
      */
-    public function getIsActive() {
-        return $this->isActive;
+    public function getStatus() {
+        return $this->status;
     }
 
     /**
      *
-     * @param boolean $isActive
+     * @param integer $status
      * @return Tag
      */
-    public function setIsActive($isActive) {
-        $this->isActive = $isActive;
+    public function setStatus($status) {
+        $this->status = $status;
 
         return $this;
     }

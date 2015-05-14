@@ -75,7 +75,7 @@ class PagesTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGetAll() {
-        $criteria = array('isActive' => true);
+        $criteria = array('status' => \Administration\Model\BaseModel::STATUS_INACTIVE);
         $this->entityManagerMock->expects($this->any())
                 ->method('getRepository')
                 ->will($this->returnValue($this->repositoryMock));
@@ -162,7 +162,7 @@ class PagesTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGetData() {
-        $criteria = array('isActive' => true);
+        $criteria = array('status' => \Administration\Model\BaseModel::STATUS_ACTIVE);
         $this->entityManagerMock->expects($this->any())
                 ->method('getRepository')
                 ->will($this->returnValue($this->repositoryMock));
@@ -179,7 +179,7 @@ class PagesTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGetDataWithParentId() {
-        $criteria = array('isActive' => true);
+        $criteria = array('status' => \Administration\Model\BaseModel::STATUS_ACTIVE);
         $this->entityManagerMock->expects($this->any())
                 ->method('getRepository')
                 ->will($this->returnValue($this->repositoryMock));

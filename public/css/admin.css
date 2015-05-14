@@ -1,5 +1,5 @@
 .login-container{
-    max-width: 40%;
+    max-width: 30%;
     margin: 0 auto;
     padding: 6% 0;
 }
@@ -40,4 +40,19 @@ section aside ul li a{
 section aside ul li a:hover{
     color: #000;
     text-decoration: none;
+}
+/*********************/
+.navbar-top-links .dropdown a{
+    color: #000;
+    font-size: 11px;
+}
+.navbar-top-links > li a:focus,
+.navbar-top-links > li a:hover,
+.navbar-top-links > li.open,
+.navbar-top-links > li.open a:hover{
+    color: #337ab7;
+    background-color: #fff;
+}
+.navbar-top-links .dropdown a .glyphicon{
+    font-size: 14px;
 }

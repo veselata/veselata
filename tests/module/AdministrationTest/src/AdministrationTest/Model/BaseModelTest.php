@@ -53,7 +53,7 @@ class BaseModelTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGetAll() {
-        $criteria = array('isActive' => true);
+        $criteria = array('status' => \Administration\Model\BaseModel::STATUS_ACTIVE);
         $this->entityManagerMock->expects($this->once())
                 ->method('getRepository')
                 ->will($this->returnValue($this->repositoryMock));

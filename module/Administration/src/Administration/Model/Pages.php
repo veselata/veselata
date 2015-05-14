@@ -26,7 +26,7 @@ class Pages extends BaseModel {
      */
     public function getData() {
         $response = array();
-        $data = $this->getAll(array('isActive' => true));
+        $data = $this->getAll(array('status' => \Administration\Model\BaseModel::STATUS_ACTIVE));
 
         foreach ($data as $page) {
             if ($page->getParentId()) {

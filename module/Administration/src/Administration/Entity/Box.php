@@ -51,11 +51,11 @@ class Box {
     private $sortOrder;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="is_active", type="boolean", nullable=false)
+     * @ORM\Column(name="status", type="integer", nullable=false)
      */
-    private $isActive = '0';
+    private $status = '0';
 
     /**
      * @var \DateTime
@@ -68,6 +68,7 @@ class Box {
      * @ORM\PrePersist
      */
     function onPrePersist() {
+        $this->sortOrder = 0;
         $this->createdAt = new \DateTime('now');
     }
 
@@ -157,19 +158,19 @@ class Box {
 
     /**
      *
-     * @return boolean
+     * @return integer
      */
-    public function getIsActive() {
-        return $this->isActive;
+    public function getStatus() {
+        return $this->status;
     }
 
     /**
      *
-     * @param boolean $isActive
+     * @param integer $status
      * @return Box
      */
-    public function setIsActive($isActive) {
-        $this->isActive = $isActive;
+    public function setStatus($status) {
+        $this->status = $status;
 
         return $this;
     }
@@ -191,6 +192,19 @@ class Box {
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    /**
+     *
+     * @return array
+     */
+    public function getData() {
+        return array(
+            'id' => $this->getId(),
+            'title' => $this->getTitle(),
+            'position' => \Administration\Model\Boxes::getPositionByKey($this->getPosition()),
+            'status' => \Administration\Model\BaseModel::getStatusByKey($this->getStatus()),
+        );
     }
 
 }

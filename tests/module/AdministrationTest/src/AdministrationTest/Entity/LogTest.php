@@ -56,12 +56,12 @@ class LogTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testSetGetIsBlocked() {
-        $isActive = true;
-        $this->entity->setIsBlocked($isActive);
+        $isBlocked = true;
+        $this->entity->setIsBlocked($isBlocked);
 
         $this->entityMock->expects($this->once())
                 ->method('getIsBlocked')
-                ->will($this->returnValue($isActive));
+                ->will($this->returnValue($isBlocked));
         $this->assertEquals($this->entity->getIsBlocked(), $this->entityMock->getIsBlocked());
     }
 
