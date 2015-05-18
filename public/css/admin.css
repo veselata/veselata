@@ -14,6 +14,9 @@ header{
     height: 100px;
 }
 /******************************/
+.breadcrumb{
+    background: none;
+}
 h1{
     font-size: 20px;
     margin-top: 0;
@@ -55,4 +58,18 @@ section aside ul li a:hover{
 }
 .navbar-top-links .dropdown a .glyphicon{
     font-size: 14px;
+}
+.btn-outline {
+    background-color: transparent;
+    color: inherit;
+    transition: all 0.5s ease 0s;
+}
+.reset{
+    margin-right: 15px;
+}
+.panel{
+    border: 1px solid #eee;
+}
+.panel > .panel-heading{
+    border-bottom: 1px solid #eee;
 }

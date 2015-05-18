@@ -14,6 +14,10 @@ $(document).ready(function () {
 
     $('a.tooltipsy').tooltip();
 
+    $("input.reset").click(function () {
+        $("textarea").val('');
+    });
+
     $('.form-group .required').each(function () {
         $(this).attr('placeholder', $(this).attr('placeholder') + ' *');
     });

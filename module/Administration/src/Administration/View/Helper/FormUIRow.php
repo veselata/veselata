@@ -7,7 +7,7 @@ use Zend\Form\View\Helper\FormRow as BaseFormRow;
 
 class FormUIRow extends BaseFormRow {
 
-    protected $elementTypes = array('hidden', 'button', 'submit');
+    protected $elementTypes = array('hidden', 'button', 'submit', 'reset');
 
     public function render(ElementInterface $element) {
         if (!in_array($element->getAttribute('type'), $this->elementTypes)) {

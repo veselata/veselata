@@ -1,6 +1,16 @@
-<h1>Add</h1>
-<?php echo $this->flashMessenger()->renderCurrent(); ?>
-<?php
-$form->setAttribute('action', $this->url('boxes', array('action' => 'add')));
-echo $this->form()->render($form);
+<div class="panel">
+    <div class="panel-heading clearfix">
+        <h4 class="pull-left">Add new box</h4>
+        <span class="pull-right">
+            <a href="<?php echo $this->url('boxes', array('action' => 'index')); ?>" class="btn btn-outline btn-default">Back</a>
+        </span>
+    </div>
+    <div class="panel-body">
+        <?php echo $this->alerts()->render(); ?>
+        <?php
+        $form->setAttribute('action', $this->url('boxes', array('action' => 'add')));
+        echo $this->form()->render($form);
+        ?>
+    </div>
+</div>
 

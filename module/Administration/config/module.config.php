@@ -102,6 +102,7 @@ return array(
         'invokables' => array(
             'cktextarea' => 'Administration\Form\Element\Textarea',
             'user-password' => 'Administration\Form\Element\Password',
+            'reset' => 'Administration\Form\Element\Reset',
         ),
     ),
 );

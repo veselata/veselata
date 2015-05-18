@@ -194,4 +194,17 @@ class Contact {
         return $this;
     }
 
+    /**
+     *
+     * @return array
+     */
+    public function getData() {
+        return array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'email' => $this->getEmail(),
+            'ip' => $this->getIp(),
+        );
+    }
+
 }

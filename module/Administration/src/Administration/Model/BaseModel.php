@@ -182,6 +182,14 @@ abstract class BaseModel {
 
     /**
      *
+     * @return \Doctrine\ORM\EntityRepository
+     */
+    public function getRepository() {
+        return $this->entityManager->getRepository($this->entity);
+    }
+
+    /**
+     *
      * @return string
      */
     public static function getRemoteAddress() {

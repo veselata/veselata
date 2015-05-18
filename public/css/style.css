@@ -38,6 +38,9 @@ ul{
 .flexslider a{
     border: none;
 }
+.reset{
+    margin-right: 15px;
+}
 /**************/
 .top-bar{
     background: none repeat scroll 0 0 #888;

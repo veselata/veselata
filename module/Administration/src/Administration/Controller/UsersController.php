@@ -27,7 +27,6 @@ class UsersController extends AbstractActionController {
     }
 
     public function indexAction() {
-        // return new ViewModel(array('users' => $this->usersModel->getAll()));
         return new ViewModel(array());
     }
 

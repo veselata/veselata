@@ -6,7 +6,7 @@ $(document).ready(function () {
         formatters: {
             "options": function (column, row)
             {
-                return "<a href=\"edit/" + row.id + "\">Edit</a> | " +
+                return "<a href=\"edit/" + row.id + "\">View</a> | " +
                         "<a href=\"delete/" + row.id + "\" onclick=\"return confirm('Do you really want to remove this item?')\">Delete</a>";
             }
         }

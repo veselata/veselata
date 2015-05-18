@@ -44,8 +44,4 @@ class Password extends Element implements InputProviderInterface {
         );
     }
 
-    public function prepareElement(FormInterface $form) {
-        $this->setValue('');
-    }
-
 }

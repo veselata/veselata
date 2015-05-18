@@ -102,6 +102,16 @@ class User extends Fieldset implements InputFilterProviderInterface {
                             'max' => 255,
                         ),
                     ),
+                /*    array(
+                  'name' => 'DoctrineModule\Validator\NoObjectExists',
+                  'options' => array(
+                  'object_repository' => $this->entityManager->getRepository($this->targetClass),
+                  'fields' => 'username',
+                  'messages' => array(
+                  'objectFound' => 'User with this username already exists'
+                  ),
+                  )
+                  ), */
                 ),
             ),
         );

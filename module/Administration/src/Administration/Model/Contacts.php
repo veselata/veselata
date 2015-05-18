@@ -4,7 +4,7 @@ namespace Administration\Model;
 
 use Doctrine\ORM\EntityManager;
 
-class Contacts extends BaseModel {
+class Contacts extends BaseModel implements IBaseModel {
 
     /**
      *

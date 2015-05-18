@@ -125,6 +125,7 @@ return array(
             'formCollection' => 'Administration\View\Helper\FormUICollection',
             'formRow' => 'Administration\View\Helper\FormUIRow',
             'formElement' => 'Administration\View\Helper\FormUIElement',
+            'alerts' => 'Administration\View\Helper\Alerts',
         ),
     ),
     'view_helper_config' => array(

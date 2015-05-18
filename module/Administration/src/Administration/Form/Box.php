@@ -34,6 +34,11 @@ class Box extends Form {
         ));
 
         $this->add(array(
+            'name' => 'reset',
+            'type' => 'Administration\Form\Element\Reset',
+        ));
+
+        $this->add(array(
             'name' => 'submit',
             'type' => 'Submit',
             'attributes' => array(

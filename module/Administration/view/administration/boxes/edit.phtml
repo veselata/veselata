@@ -1,5 +1,15 @@
-<h1>Edit</h1>
-<?php echo $this->flashMessenger()->renderCurrent(); ?>
-<?php
-$form->setAttribute('action', $this->url('boxes', array('action' => 'edit', 'id' => 1)));
-echo $this->form()->render($form);
+<div class="panel">
+    <div class="panel-heading clearfix">
+        <h4 class="pull-left">Edit box</h4>
+        <span class="pull-right">
+            <a href="<?php echo $this->url('boxes', array('action' => 'index')); ?>" class="btn btn-outline btn-default">Back</a>
+        </span>
+    </div>
+    <div class="panel-body">
+        <?php echo $this->alerts()->render(); ?>
+        <?php
+        $form->setAttribute('action', $this->url('boxes', array('action' => 'edit', 'id' => 1)));
+        echo $this->form()->render($form);
+        ?>
+    </div>
+</div>

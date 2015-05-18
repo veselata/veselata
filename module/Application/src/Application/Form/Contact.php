@@ -79,6 +79,11 @@ class Contact extends Form implements InputFilterProviderInterface {
         ));
 
         $this->add(array(
+            'name' => 'reset',
+            'type' => 'Administration\Form\Element\Reset',
+        ));
+
+        $this->add(array(
             'name' => 'submit',
             'type' => 'Submit',
             'attributes' => array(
