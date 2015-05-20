@@ -18,9 +18,9 @@
 
     </head>
     <body>
-        <div class="container">
-            <header>
-                <nav class="col-md-3"><a href="<?php echo $this->url('dashboard'); ?>"><img src="<?php echo $this->basePath() . '/images/logo.png'; ?>" alt="Veselata" /></a></nav>
+        <main class="container">
+            <header class="navbar navbar-static-top">
+                <div class="col-md-3"><a href="<?php echo $this->url('dashboard'); ?>"><img src="<?php echo $this->basePath() . '/images/apple-touch-icon-72x72.png'; ?>" alt="Veselata" /></a></div>
                 <aside class="col-md-9"><?php echo $this->partial('partial/logged', array('identity' => $identity)); ?></aside>
             </header>
             <section class="row">
@@ -28,7 +28,7 @@
                 <aside class="col-md-3"><?php echo $this->navigation('navigation')->menu()->escapeLabels(false); ?></aside>
                 <div class="col-md-9"><?php echo $this->content; ?></div>
             </section>
-        </div>
+        </main>
         <?php
         echo $this->headScript()
                 ->prependFile($this->basePath() . '/js/admin.js')

@@ -1,15 +1,16 @@
 <div class="panel">
     <div class="panel-heading clearfix">
-        <h4 class="pull-left">Edit user</h4>
+        <h4 class="pull-left">Add new project</h4>
         <span class="pull-right">
-            <a href="<?php echo $this->url('users', array('action' => 'index')); ?>" class="btn btn-outline btn-default">Back</a>
+            <a href="<?php echo $this->url('projects', array('action' => 'index')); ?>" class="btn btn-outline btn-default">Back</a>
         </span>
     </div>
     <div class="panel-body">
         <?php echo $this->alerts()->render(); ?>
         <?php
-        $form->setAttribute('action', $this->url('users', array('action' => 'edit', 'id' => $id)));
+        $form->setAttribute('action', $this->url('projects', array('action' => 'add')));
         echo $this->form()->render($form);
         ?>
     </div>
 </div>
+

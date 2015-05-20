@@ -44,24 +44,6 @@ class User extends Fieldset implements InputFilterProviderInterface {
             ),
         ));
 
-        $this->add(
-                array(
-                    'type' => 'Administration\Form\Element\Password',
-                    'name' => 'password',
-                )
-        );
-
-        $this->add(array(
-            'type' => 'text',
-            'name' => 'username',
-            'options' => array(
-                'label' => 'Username'
-            ),
-            'attributes' => array(
-                'class' => 'required',
-            ),
-        ));
-
         $this->add(array(
             'type' => 'select',
             'name' => 'type',
@@ -80,6 +62,24 @@ class User extends Fieldset implements InputFilterProviderInterface {
                 'options' => \Administration\Model\BaseModel::getStatusList(),
             ),
         ));
+
+        $this->add(array(
+            'type' => 'text',
+            'name' => 'username',
+            'options' => array(
+                'label' => 'Username'
+            ),
+            'attributes' => array(
+                'class' => 'required',
+            ),
+        ));
+
+        $this->add(
+                array(
+                    'type' => 'Administration\Form\Element\Password',
+                    'name' => 'password',
+                )
+        );
     }
 
     public function getInputFilterSpecification() {
@@ -102,16 +102,6 @@ class User extends Fieldset implements InputFilterProviderInterface {
                             'max' => 255,
                         ),
                     ),
-                /*    array(
-                  'name' => 'DoctrineModule\Validator\NoObjectExists',
-                  'options' => array(
-                  'object_repository' => $this->entityManager->getRepository($this->targetClass),
-                  'fields' => 'username',
-                  'messages' => array(
-                  'objectFound' => 'User with this username already exists'
-                  ),
-                  )
-                  ), */
                 ),
             ),
         );

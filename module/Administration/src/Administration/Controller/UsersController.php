@@ -50,22 +50,31 @@ class UsersController extends AbstractActionController {
     }
 
     public function editAction() {
-        $object = $this->model->get($this->params()->fromRoute('id'));
-        $this->form->bind($object);
+        $id = $this->params()->fromRoute('id');
+        try {
+            $object = $this->model->get($id);
+            $this->form->get('user-fieldset')->remove('password');
+            $this->form->get('user-fieldset')->get('username')->setAttribute('readonly', true);
+            $this->form->setOption('is_edit', 1);
+            $this->form->bind($object);
 
-        if ($this->getRequest()->isPost()) {
-            $this->form->setData($this->getRequest()->getPost());
+            if ($this->getRequest()->isPost()) {
+                $this->form->setData($this->getRequest()->getPost());
 
-            if ($this->form->isValid()) {
-                $this->model->edit($object);
-                $this->flashMessenger()->addMessage('Your data was saved successfully.');
-                $this->redirect()->toRoute('users');
-            } else {
-                $this->flashMessenger()->addMessage('Please fill in all fields marked with an asterisk (*)');
+                if ($this->form->isValid()) {
+                    $this->model->edit($object);
+                    $this->flashMessenger()->addMessage('Your data was saved successfully.');
+                    $this->redirect()->toRoute('users');
+                } else {
+                    $this->flashMessenger()->addMessage('Please fill in all fields marked with an asterisk (*)');
+                }
             }
-        }
 
-        return new ViewModel(array('form' => $this->form));
+            return new ViewModel(array('form' => $this->form, 'id' => $id));
+        } catch (\Exception $ex) {
+            // log error
+            $this->notFoundAction();
+        }
     }
 
     public function deleteAction() {
@@ -73,7 +82,7 @@ class UsersController extends AbstractActionController {
         try {
             $this->model->delete($id);
             $this->flashMessenger()->addMessage('Item was removed successfully');
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             // log error
             $this->flashMessenger()->addMessage('Unable to remove item');
         }

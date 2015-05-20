@@ -77,6 +77,7 @@ return array(
     ),
     'validators' => array(
         'invokables' => array(
+            'recordExist' => 'Administration\Form\Validator\RecordExist',
         ),
     ),
     'log' => array(

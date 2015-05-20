@@ -97,7 +97,8 @@ class FilesTest extends \PHPUnit_Framework_TestCase {
 
         $this->repositoryMock->expects($this->any())
                 ->method('find')
-                ->with($this->equalTo($id));
+                ->with($this->equalTo($id))
+                ->will($this->returnValue($this->entityMock));
 
         $this->assertSame($this->entityModel->get($id), $this->baseModelMock->get($id));
     }

@@ -13,6 +13,12 @@ class User extends Form {
      */
     protected $entityManager;
 
+    /**
+     *
+     * @var string
+     */
+    protected $targetClass = 'Administration\Entity\User';
+
     public function __construct(EntityManager $entityManager) {
         $this->entityManager = $entityManager;
 
@@ -46,6 +52,43 @@ class User extends Form {
                 'class' => 'btn btn-primary',
             ),
         ));
+    }
+
+    public function getInputFilterSpecification() {
+        return array(
+            'username' => array(
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min' => 5,
+                            'max' => 255,),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public function getInputFilter() {
+        $formInputFilter = parent::getInputFilter();
+
+        if (!array_key_exists('is_edit', $this->getOptions())) {
+            $usernameInput = $formInputFilter->get('user-fieldset')->get('username');
+
+            $validator = new \Administration\Form\Validator\RecordExist(array(
+                'repository' => $this->entityManager->getRepository($this->targetClass),
+                'field' => 'username',
+            ));
+            $usernameInput->getValidatorChain()->addValidator($validator);
+        }
+
+        return $formInputFilter;
     }
 
 }

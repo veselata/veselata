@@ -390,6 +390,8 @@ class Project {
         return array(
             'id' => $this->getId(),
             'name' => $this->getName(),
+            'url' => $this->getUrl(),
+            'status' => \Administration\Model\BaseModel::getStatusByKey($this->getStatus()),
         );
     }
 

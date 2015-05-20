@@ -75,7 +75,8 @@ class BaseModelTest extends \PHPUnit_Framework_TestCase {
 
         $this->repositoryMock->expects($this->once())
                 ->method('find')
-                ->with($this->equalTo($id));
+                ->with($this->equalTo($id))
+                ->will($this->returnValue($this->testRepo));
 
         $this->baseModelMock->get($id);
     }

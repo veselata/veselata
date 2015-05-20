@@ -3,7 +3,7 @@
 namespace Administration\Model;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\Common\Annotations\AnnotationReader;
+//use Doctrine\Common\Annotations\AnnotationReader;
 use Zend\Http\PhpEnvironment;
 
 abstract class BaseModel {
@@ -93,7 +93,13 @@ abstract class BaseModel {
         if (!is_numeric($id)) {
             throw new \Exception('Invalid parameter passed is ' . __FUNCTION__);
         }
-        return $this->entityManager->getRepository($this->entity)->find($id);
+
+        $entity = $this->entityManager->getRepository($this->entity)->find($id);
+        if ($entity === null) {
+            throw new \Exception('Not found in ' . __FUNCTION__);
+        }
+
+        return $entity;
     }
 
     /**
