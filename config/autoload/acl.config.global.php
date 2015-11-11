@@ -28,6 +28,9 @@ return array(
                 'Application\Controller\ErrorController' => array(
                     0 => array('guest'),
                 ),
+                'Application\Controller\WeatherController' => array(
+                    0 => array('guest'),
+                ),
                 'Administration\Controller\IndexController' => array(
                     'login' => null,
                 ),

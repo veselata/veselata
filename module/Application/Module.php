@@ -10,10 +10,16 @@ class Module {
 
     public function onBootstrap(MvcEvent $event) {
         $eventManager = $event->getApplication()->getEventManager();
-        /*   $eventManager->attach(array(MvcEvent::EVENT_DISPATCH_ERROR,
-          MvcEvent::EVENT_RENDER_ERROR,
-          ), array($this, 'handleException')); */
+        $serviceManager = $event->getApplication()->getServiceManager();
+
+        $eventManager->attach(array(MvcEvent::EVENT_DISPATCH_ERROR,
+            MvcEvent::EVENT_RENDER_ERROR,
+                ), array($this, 'handleException'));
         $eventManager->attach(MvcEvent::EVENT_RENDER, array($this, 'setViewRenderes'));
+
+        $cacheService = $serviceManager->get('Administration\Service\CacheService');
+        $eventManager->attach($cacheService);
+
         $this->initSession(array(
             'remember_me_seconds' => 60 * 60 * 24,
             'use_cookies' => true,
@@ -27,18 +33,12 @@ class Module {
                 'type' => $event->getParam('error'),
                 'ip' => \Administration\Model\Logs::getRemoteAddress(),
             );
-            $event->getApplication()->getServiceManager()->get('log')->crit($log);
+            $event->getApplication()->getServiceManager()->get('logger')->crit($log);
 
-            $viewModel = $event->getViewModel();
-            $viewModel->setTerminal(true);
-            $viewModel->setTemplate('error/404');
-
-            $event->setViewModel($viewModel);
+            $url = $event->getRouter()->assemble(array(), array('name' => 'error'));
             $response = $event->getResponse();
-            $response->setStatusCode(404);
-
-            $event->setResponse($response);
-            $event->setResult($viewModel);
+            $response->getHeaders()->addHeaderLine('Location', $url);
+            $response->sendHeaders();
             return $response;
         }
     }

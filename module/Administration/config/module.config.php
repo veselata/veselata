@@ -22,16 +22,18 @@ return array(
     ),
     'service_manager' => array(
         'abstract_factories' => array(
-            'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
-        //'Zend\Log\LoggerAbstractServiceFactory',
+        // 'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
+        // 'Zend\Log\LoggerAbstractServiceFactory',
         ),
         'aliases' => array(
             'translator' => 'MvcTranslator',
         ),
         'factories' => array(
+            'Zend\Authentication\AuthenticationService' => 'Administration\Factory\AuthenticationServiceFactory',
             'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
             'front-navigation' => 'Administration\Factory\NavigationFactory',
-            'log' => 'Zend\Log\LoggerServiceFactory',
+            'logger' => 'Zend\Log\LoggerServiceFactory',
+            'cache' => 'Administration\Factory\CacheFactory',
         ),
         'invokables' => array(
         ),
@@ -80,6 +82,13 @@ return array(
             'recordExist' => 'Administration\Form\Validator\RecordExist',
         ),
     ),
+    'form_elements' => array(
+        'invokables' => array(
+            'cktextarea' => 'Administration\Form\Element\Textarea',
+            'user-password' => 'Administration\Form\Element\Password',
+            'reset' => 'Administration\Form\Element\Reset',
+        ),
+    ),
     'log' => array(
         'exceptionhandler' => true,
         'errorhandler' => true,
@@ -99,11 +108,13 @@ return array(
             ),
         )
     ),
-    'form_elements' => array(
-        'invokables' => array(
-            'cktextarea' => 'Administration\Form\Element\Textarea',
-            'user-password' => 'Administration\Form\Element\Password',
-            'reset' => 'Administration\Form\Element\Reset',
+    'cache' => array(
+        'adapter' => array(
+            'name' => 'filesystem'
+        ),
+        'options' => array(
+            'cache_dir' => 'data/cache/',
+            'ttl' => 100,
         ),
     ),
 );

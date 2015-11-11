@@ -6,6 +6,7 @@ return array(
             'Application\Controller\IndexController',
             'Application\Controller\ContactController',
             'Application\Controller\ProjectController',
+            'Application\Controller\WeatherController',
         ),
     ),
     'router' => array(
@@ -82,6 +83,17 @@ return array(
                     'defaults' => array(
                         'controller' => 'Application\Controller\ErrorController',
                         'action' => 'index',
+                    ),
+                ),
+            ),
+            'weather' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/weather',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\WeatherController',
+                        'action' => 'index',
+                        'cache' => true,
                     ),
                 ),
             ),

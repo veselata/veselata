@@ -11,7 +11,7 @@ return array(
                     'port' => '3306',
                     'user' => 'root',
                     'password' => 'veselina',
-                    'dbname' => 'solution',
+                    'dbname' => 'veselata',
                 ),
             ),
         ),
